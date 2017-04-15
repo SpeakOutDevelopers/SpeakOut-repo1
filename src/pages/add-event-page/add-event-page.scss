@@ -1,0 +1,33 @@
+page-add-event-page {
+
+    ion-scroll {
+        white-space: nowrap;
+        height: 250px; // better to calculate the device height and set it offsetting the bottom StatusBar or margin, etc.
+    }
+    .scroll-idiomas{
+        width:100%;
+    }
+    .col-idiomas{
+        width: 20%;
+    }
+
+    .lista-idiomas{
+        border: 1px solid #000;
+        border-radius: 5px;
+        //text-align: center;
+        //background-color: #303030;
+    }
+    .idiomas-seleccionados{
+        width: 100%;
+    }
+    .scroll-item{
+                width: 100%;
+
+    }
+    .scroll-content{
+        width: 100%;
+        margin: 0;
+        padding: 0;
+
+    }
+}

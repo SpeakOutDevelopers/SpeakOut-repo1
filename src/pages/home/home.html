@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Speak Out</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content >
+  <ion-list no-lines>  
+    <ion-item-sliding *ngFor="let evento of eventos">
+      <ion-item class="evento" >
+        <ion-grid>
+          <ion-row>
+            <!--<ion-col width-33>
+              <div >
+                <img src={{evento.usuario.img}}>
+              </div>
+            </ion-col>-->
+            <ion-col  width-20>
+              <div > 
+                
+                  <img  src={{evento.usuario.img}}>
+                
+              </div>
+              
+            </ion-col>
+            <ion-col width-80>
+           
+              <ion-row>
+                <h2>{{evento.usuario.nombre}}</h2>
+              </ion-row>
+              <ion-row>
+                <ion-col width-50 >
+                  <div class="idiomas"> 
+                    <p *ngFor="let idioma of evento.idiomas">{{idioma.nombre}}, {{idioma.nivel}}</p>
+                  </div>
+                </ion-col>
+                
+              </ion-row>
+      
+            </ion-col>
+          </ion-row>
+          <ion-row>
+                <ion-col width-50 >
+                  <div class="info-evento">
+                    <p>{{evento.fecha_evento}}</p>
+                    <p>{{evento.ubicacion.nombre}}</p>
+                  </div>
+                </ion-col>
+              </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-item-sliding>
+  </ion-list>
+
+
+ <ion-fab right bottom>
+    <button ion-fab class="create-lift" (click)="addEvent()" ><ion-icon name="add"></ion-icon><ion-icon name="md-contacts"></ion-icon></button>
+  </ion-fab>
+</ion-content>

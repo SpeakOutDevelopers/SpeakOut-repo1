@@ -1,0 +1,31 @@
+page-home {
+    .evento{
+        border: 1px solid #FAFAFA;
+        border-radius: 5px;
+        //text-align: center;
+        background-color: #FFF;
+    }
+    ion-item {
+      border-bottom: none !important;
+    }
+    ion-content{
+       background-color: #F5F5F5!important;
+    }
+    ion-col div {
+        border: 1px solid #000;
+        border-radius: 5px;
+        text-align: center;
+        //height: 100%;
+    
+    //background-color: #303030;
+    }
+    p {
+        font-size:10px!important;
+    }
+  ion-item-sliding {
+    margin: 15px;
+    }
+    ion-label {
+      white-space: normal;
+    }
+}

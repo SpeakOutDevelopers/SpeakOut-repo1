@@ -1,0 +1,86 @@
+<!--
+  Generated template for the AddEventPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Crear Evento</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+  
+</ion-header>
+
+<ion-content padding>
+  <ion-list>  
+    <form #formData='ngForm' >
+
+      <ion-item *ngIf="user!=null">
+        <ion-label floating><ion-icon name="contact"></ion-icon>Usuario*</ion-label>
+        <ion-input [(ngModel)]="user.nombre" type="text" disabled="true"  [ngModelOptions]="{standalone: true}" ></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating><ion-icon name="calendar"></ion-icon>Fecha*</ion-label>
+        <ion-datetime type="text" displayFormat="YYYY-MM-DD" min={{currentDate}} max="2017-06-01" (ngModel)="date_event" name="date_event"  required>
+        </ion-datetime>
+      </ion-item>
+        
+      <ion-item>
+        <ion-label floating><ion-icon name="time"></ion-icon>Hora inicio*</ion-label>
+        <ion-datetime type="text" displayFormat="HH:mm" (ngModel)="start_time"  name="start_time" required>
+        </ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating><ion-icon name="time"></ion-icon>Hora fin*</ion-label>
+        <ion-datetime type="text" displayFormat="HH:mm" (ngModel)="end_time"  name="end_time" required>
+        </ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-grid>
+          <ion-row> 
+            <ion-col class="col-idiomas lista-idiomas" width-30>
+               <ion-scroll  scrollY="true" direction="xy" overflow-scroll="true" class="scroll-idiomas">
+
+                    <div (tap)="selectLanguage(idioma.nombre)" *ngFor="let idioma of todosIdiomas" >
+                      <ion-avatar >
+                        <img src={{idioma.img}} />
+                      </ion-avatar>
+                      <h2>{{idioma.nombre}}</h2>
+                    </div>
+
+               </ion-scroll>  
+            </ion-col>
+            <ion-col class="idiomas-seleccionados" width-70>
+              <ion-scroll  scrollY="true" direction="xy" overflow-scroll="true">
+                <div  *ngFor="let lang of languages" >
+                    <b>{{ capitalizeFirstLetter(lang.nombre)}} </b> <ion-icon *ngFor='let tmp of stringToArray(lang.nivel)' name="star"></ion-icon>
+                </div>
+              </ion-scroll>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <button  ion-button small full icon-only (tap)="addLanguage()"><ion-icon name="add"></ion-icon></button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
+      <ion-item>
+          <ion-select [(ngModel)]="ubicacion"  [ngModelOptions]="{standalone: true}" >
+            <ion-option   *ngFor="let ubicacion of ubicaciones" >{{ubicacion.nombre}}</ion-option>
+          </ion-select>
+      </ion-item>
+      
+      <button ion-button full (tap)="save(formData)" [disabled]="!formData.valid"><ion-icon name="md-contacts"></ion-icon>Crear Evento</button>  
+
+    </form>
+  </ion-list>
+</ion-content>

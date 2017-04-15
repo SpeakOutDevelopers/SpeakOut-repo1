@@ -1,0 +1,51 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content >
+  
+    <ion-list> 
+      <ion-item *ngIf="error">  
+        <span class="error" >{{ error }}</span>
+      </ion-item>
+
+      <ion-item>
+          <ion-input [(ngModel)]="user.email" type="email" placeholder="Email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+          <ion-input [(ngModel)]="user.password" type="password" placeholder="Contraseña"></ion-input>
+      </ion-item>
+      
+        
+      <ion-item>
+          <button ion-button full  (tap)="login()" color="primary">Iniciar Sesión</button>
+    
+          <button ion-button full  (tap)="signUp()" color="secondary">Crear Cuenta</button>
+      </ion-item>
+      
+      <!--<ion-item>
+          <button ion-button icon-left  (click)="loginFb()" id="fb" color=blue-5 >
+              <ion-icon name="logo-facebook"></ion-icon>
+              Continuar con Facebook
+          </button>
+
+          <button ion-button icon-right item-right  (click)="loginGoogle()" id="google" color=red>
+              <ion-icon name="logo-google"  ></ion-icon>
+              Continuar con Google
+          </button>
+      </ion-item>-->
+
+    </ion-list>
+</ion-content> 
