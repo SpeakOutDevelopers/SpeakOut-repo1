@@ -20,30 +20,30 @@
     <form #formData='ngForm' >
 
       <ion-item *ngIf="user!=null">
-        <ion-label floating><ion-icon name="contact"></ion-icon>Usuario*</ion-label>
+        <ion-label floating><ion-icon name="contact"></ion-icon>Usuario</ion-label>
         <ion-input [(ngModel)]="user.nombre" type="text" disabled="true"  [ngModelOptions]="{standalone: true}" ></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label floating><ion-icon name="calendar"></ion-icon>Fecha*</ion-label>
+        <ion-label floating><ion-icon name="calendar"></ion-icon>Día</ion-label>
         <ion-datetime type="text" displayFormat="YYYY-MM-DD" min={{currentDate}} max="2017-06-01" (ngModel)="date_event" name="date_event"  required>
-        </ion-datetime>
+        </ion-datetime> 
       </ion-item>
         
       <ion-item>
-        <ion-label floating><ion-icon name="time"></ion-icon>Hora inicio*</ion-label>
+        <ion-label floating><ion-icon name="time"></ion-icon>Desde</ion-label>
         <ion-datetime type="text" displayFormat="HH:mm" (ngModel)="start_time"  name="start_time" required>
         </ion-datetime>
       </ion-item>
 
       <ion-item>
-        <ion-label floating><ion-icon name="time"></ion-icon>Hora fin*</ion-label>
+        <ion-label floating><ion-icon name="time"></ion-icon>Hasta</ion-label>
         <ion-datetime type="text" displayFormat="HH:mm" (ngModel)="end_time"  name="end_time" required>
         </ion-datetime>
       </ion-item>
 
       <ion-item>
-        <ion-grid>
+        <ion-grid no-padding>
           <ion-row> 
             <ion-col class="col-idiomas lista-idiomas" width-30>
                <ion-scroll  scrollY="true" direction="xy" overflow-scroll="true" class="scroll-idiomas">
@@ -79,7 +79,7 @@
           </ion-select>
       </ion-item>
       
-      <button ion-button full (tap)="save(formData)" [disabled]="!formData.valid"><ion-icon name="md-contacts"></ion-icon>Crear Evento</button>  
+      <button ion-button color="secondary" full (tap)="save(formData)" [disabled]="!formData.valid"><ion-icon name="md-contacts"></ion-icon>Crear Evento</button>  
 
     </form>
   </ion-list>

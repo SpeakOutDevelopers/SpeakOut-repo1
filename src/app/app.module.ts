@@ -35,6 +35,7 @@ export const firebaseConfig = {
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { ExpandableHeader } from "../components/expandable-header/expandable-header";
 
 @NgModule({
   declarations: [
@@ -49,13 +50,15 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     LoginPage,
     ModifiyProfilePage,
     SignupPage,
-    UserProfilePage
+    UserProfilePage,
+    ExpandableHeader
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig)
-  ],
+    ],
+  
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,

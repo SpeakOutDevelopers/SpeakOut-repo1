@@ -101,7 +101,7 @@ export class AddEventPage {
      if(formData.valid){
 
         if(this.languages.length < 1){
-          this.CC.showAlert("La lista de idiomas esta vacia");
+          this.CC.showAlert("La lista de idiomas esta vacía");
           return null;
         }
         if(this.ubicacion == '' || this.ubicacion == null){
