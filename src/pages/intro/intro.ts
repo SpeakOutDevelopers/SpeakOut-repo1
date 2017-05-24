@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { RegisterNamePage } from '../register-name/register-name';
 
 /**
  * Generated class for the IntroPage page.
@@ -17,7 +18,7 @@ export class IntroPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad IntroPage');
+    this.navCtrl.push(RegisterNamePage);
   }
 
 }

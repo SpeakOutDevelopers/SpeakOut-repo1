@@ -7,12 +7,24 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>register-age</ion-title>
+    <ion-title>¿Cuántos años tenés?</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <form #formData='ngForm' (ngSubmit)="passToEmail(formData)" >
+    <ion-grid>
+      <ion-item>
+        <ion-input type="number" placeholder="Edad" (ngModel)="age" name="age" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <button ion-button block outline icon-left [disabled]="!formData.valid">
+              Continuar
+            </button>
 
+      </ion-item>
+    </ion-grid>
+  </form>
 </ion-content>

@@ -7,12 +7,24 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>register-photo</ion-title>
+    <ion-title>Subí una foto tuya</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <form #formData='ngForm' (ngSubmit)="passToLanguage(formData)">
+    <ion-grid>
+      <ion-item>
+        <ion-input type="text" placeholder="Imagen" (ngModel)="photo" name="photo" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <button ion-button block outline icon-left [disabled]="!formData.valid">
+              Continuar
+            </button>
 
+      </ion-item>
+    </ion-grid>
+  </form>
 </ion-content>

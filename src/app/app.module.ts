@@ -24,6 +24,18 @@ import { CentralController } from '../controllers/central.controller';
 
 import { AngularFireModule } from 'angularfire2';
 
+import {IntroPage} from '../pages/intro/intro';
+import {RegisterNamePage} from '../pages/register-name/register-name';
+import {RegisterGenderPage} from '../pages/register-gender/register-gender';
+import {RegisterAgePage} from '../pages/register-age/register-age';
+import {RegisterEmailPage} from '../pages/register-email/register-email';
+import {RegisterPasswordPage} from '../pages/register-password/register-password';
+import {RegisterPhotoPage} from '../pages/register-photo/register-photo';
+import {RegisterLanguagePage} from '../pages/register-language/register-language';
+
+
+
+
 export const firebaseConfig = {
   apiKey: "AIzaSyAlCUzN3YQD_pZXMUn1UFau3ttTE7lYB_o",
   authDomain: "speakout-d5b56.firebaseapp.com",
@@ -51,7 +63,15 @@ import { ExpandableHeader } from "../components/expandable-header/expandable-hea
     ModifiyProfilePage,
     SignupPage,
     UserProfilePage,
-    ExpandableHeader
+    ExpandableHeader,
+    IntroPage,
+    RegisterNamePage,
+    RegisterGenderPage,
+    RegisterAgePage,
+    RegisterEmailPage,
+    RegisterPasswordPage,
+    RegisterPhotoPage,
+    RegisterLanguagePage
   ],
   imports: [
     BrowserModule,
@@ -72,7 +92,15 @@ import { ExpandableHeader } from "../components/expandable-header/expandable-hea
     LoginPage,
     ModifiyProfilePage,
     SignupPage,
-    UserProfilePage
+    UserProfilePage,
+    IntroPage,
+    RegisterNamePage,
+    RegisterGenderPage,
+    RegisterAgePage,
+    RegisterEmailPage,
+    RegisterPasswordPage,
+    RegisterPhotoPage,
+    RegisterLanguagePage
   ],
   providers: [
     StatusBar,

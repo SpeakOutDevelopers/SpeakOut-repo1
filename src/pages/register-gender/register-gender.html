@@ -7,12 +7,23 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>register-gender</ion-title>
+    <ion-title>¿Cuál es tu sexo?</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+    <ion-grid>
+      <ion-item>
+        <button ion-button block outline icon-left  (click)='passToAge("Hombre")'>
+              Hombre
+            </button>
+      </ion-item>
+      <ion-item>
+        <button ion-button block outline icon-left (click)='passToAge("Mujer")'>
+              Mujer
+            </button>
+      </ion-item>
+    </ion-grid>
 </ion-content>

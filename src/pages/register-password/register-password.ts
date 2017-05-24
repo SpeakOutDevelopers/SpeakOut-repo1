@@ -1,46 +1,48 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { RegisterEmailPage } from '../register-email/register-email';
+import { RegisterPhotoPage } from '../register-photo/register-photo';
 
 /**
- * Generated class for the RegisterAgePage page.
+ * Generated class for the RegisterPasswordPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
 @Component({
-  selector: 'page-register-age',
-  templateUrl: 'register-age.html',
+  selector: 'page-register-password',
+  templateUrl: 'register-password.html',
 })
-export class RegisterAgePage {
+export class RegisterPasswordPage {
   user = {
     first_name: "",
     last_name: "",
     gender: "",
-    age: ""
+    age: "",
+    email: "",
+    password: ""
   };
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.user = this.navParams.get("user");
-    this.user.age = "";
+    this.user.password = "";
   }
-
-  passToEmail(formData): void {
+   passToPhoto(formData): void {
     if (formData.valid) {
-      if (formData.value.age == null) {
+      if (formData.value.password == null) {
         return null;
       }
-      this.user.age = formData.value.age;
-      
 
-      this.navCtrl.push(RegisterEmailPage, {
+      this.user.password = formData.value.password;
+
+      this.navCtrl.push(RegisterPhotoPage, {
         user: this.user
       });
     }
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterAgePage');
+    console.log('ionViewDidLoad RegisterPasswordPage');
   }
 
 }
