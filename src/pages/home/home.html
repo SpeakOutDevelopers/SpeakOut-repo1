@@ -1,11 +1,22 @@
 <ion-header>
-  <expandable-header [scrollArea]="mycontent" headerHeight="170">
+  <expandable-header [scrollArea]="mycontent" headerHeight="250">
+
     <ion-item>
-      <button ion-button block outline icon-left>
+      <button ion-button block outline icon-left (click)='cleanFilters();'>
+             <ion-icon name="close"></ion-icon>
+            Limpiar filtros
+          </button>
+    </ion-item>
+
+    <ion-item>
+      <button ion-button block outline icon-left (click)='openUbicationFilter();'>
              <ion-icon name="pin"></ion-icon>
             Cerca de aquí
           </button>
     </ion-item>
+
+     
+
     <ion-item>
       <button ion-button block outline icon-left (click)='openLanguageFilter();'>
              <ion-icon name="globe"></ion-icon>
@@ -13,10 +24,15 @@
           </button>
     </ion-item>
     <ion-item>
-      <button ion-button block outline icon-left (click)='openDateFilter();'>
-             <ion-icon name="time"></ion-icon>
-            Hoy, en este momento
-          </button>
+      <ion-label ><ion-icon name="time"></ion-icon></ion-label>
+        <ion-datetime 
+          type="text" 
+          displayFormat="YYYY-MM-DD HH:mm" 
+          [(ngModel)]="parameterFecha"  
+          (ionChange)="filtrarFecha()"
+          placeholder="Hoy, en este momento" >
+          
+       </ion-datetime>
     </ion-item>
 
 
@@ -69,3 +85,4 @@
     <button color="secondary" ion-fab class="create-lift" (click)="addEvent()"><ion-icon name="add"></ion-icon></button>
   </ion-fab>
 </ion-content>
+

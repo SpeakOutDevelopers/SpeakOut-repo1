@@ -33,6 +33,9 @@ import {RegisterPasswordPage} from '../pages/register-password/register-password
 import {RegisterPhotoPage} from '../pages/register-photo/register-photo';
 import {RegisterLanguagePage} from '../pages/register-language/register-language';
 
+// import { DatePicker } from '@ionic-native/date-picker';
+
+
 
 
 
@@ -71,7 +74,8 @@ import { ExpandableHeader } from "../components/expandable-header/expandable-hea
     RegisterEmailPage,
     RegisterPasswordPage,
     RegisterPhotoPage,
-    RegisterLanguagePage
+    RegisterLanguagePage,
+    
   ],
   imports: [
     BrowserModule,

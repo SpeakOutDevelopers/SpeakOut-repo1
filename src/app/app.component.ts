@@ -41,7 +41,7 @@ export class MyApp {
             this.userProvider.setCurrentUser(user.uid);
         } else {
             this.CC.dismissLoading();
-            this.rootPage = RegisterLanguagePage;
+            this.rootPage = TabsPage;
         }
       });
     });
