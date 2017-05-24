@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { CentralController } from '../controllers/central.controller';
 
 
 /*
@@ -16,13 +17,22 @@ export class UserProvider {
 
   constructor(
     public database: AngularFireDatabase,
+    public CC: CentralController
     ) {
       console.log('Hello UserProvider Provider');
   }
 
-  setCurrentUser(uid){
-  	this.currentUser = this.database.object('/usuarios/'+uid);
-  }
+    setCurrentUser(key){
+		this.currentUser = this.database.object('/usuarios/'+key);
+		this.currentUser.subscribe(
+			user => {
+        this.CC.dismissLoading();
+				this.currentUser = user;
+
+				console.log(user);
+			});
+
+	}
   getCurrentUserObservable(){
     return this.currentUser;
   }
