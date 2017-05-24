@@ -7,6 +7,7 @@ import {FirebaseAuth} from 'angularfire2';
 import { LoginPage } from '../pages/login-page/login-page';
 import { TabsPage } from '../pages/tabs/tabs';
 import { IntroPage } from '../pages/intro/intro';
+import { RegisterLanguagePage } from '../pages/register-language/register-language';
 import { UserProvider } from '../providers/user-provider';
 import { CentralController } from '../controllers/central.controller';
 
@@ -40,7 +41,7 @@ export class MyApp {
             this.userProvider.setCurrentUser(user.uid);
         } else {
             this.CC.dismissLoading();
-            this.rootPage = IntroPage;
+            this.rootPage = RegisterLanguagePage;
         }
       });
     });

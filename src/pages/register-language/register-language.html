@@ -14,5 +14,32 @@
 
 
 <ion-content padding>
-  
+  <ion-grid no-padding>
+    <ion-row> 
+      <ion-col class="col-idiomas lista-idiomas" width-30>
+          <ion-scroll  scrollY="true" direction="xy" overflow-scroll="true" class="scroll-idiomas">
+
+              <div (tap)="selectLanguage(idioma.nombre)" *ngFor="let idioma of todosIdiomas" >
+                <ion-avatar >
+                  <img src={{idioma.img}} />
+                </ion-avatar>
+                <h2>{{idioma.nombre}}</h2>
+              </div>
+
+          </ion-scroll>  
+      </ion-col>
+      <ion-col class="idiomas-seleccionados" width-70>
+        <ion-scroll  scrollY="true" direction="xy" overflow-scroll="true">
+          <div  *ngFor="let lang of languages" >
+              <b>{{ capitalizeFirstLetter(lang.nombre)}} </b> <ion-icon *ngFor='let tmp of stringToArray(lang.nivel)' name="star"></ion-icon>
+          </div>
+        </ion-scroll>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button  ion-button small full icon-only (tap)="addLanguage()"><ion-icon name="add"></ion-icon></button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
