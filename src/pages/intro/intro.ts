@@ -46,27 +46,31 @@ export class IntroPage {
     this.navCtrl.push(LoginPage);
   }
   loginFB(){
-    console.log("facebook");
+    //console.log("facebook");
     //this.CC.showAlert("fb");
 
     if (this.platform.is('cordova')) {
       //alert("cordova");
 
-      this.fb.login(['email']).then(res => {
+      this.fb.login(['email', 'public_profile']).then(res => {
           
-          this.CC.showAlert(JSON.stringify(res));
-          
-          // const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-          // firebase.auth().signInWithCredential(facebookCredential)
-          //   .then((success) => {
-          //     this.CC.showAlert(JSON.stringify(success));
-          //   })
-          //   .catch((error) => {
-          //     this.CC.showAlert(JSON.stringify(error));
-          // });
+          //alert("login");
+          this.CC.showAlert("response: "+JSON.stringify(res));
+
+          const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+          firebase.auth().signInWithCredential(facebookCredential)
+            .then((success) => {
+              this.CC.showAlert(JSON.stringify(success));
+            })
+            .catch((error) => {
+              this.CC.showAlert("error auth: "+JSON.stringify(error));
+          });
       }, (err) => {
-          this.CC.showAlert(JSON.stringify(err));
+          this.CC.showAlert("error login: "+ JSON.stringify(err));
+          console.log(err);
+          
       });
+      
     }
     else {
       return this.afAuth.auth
