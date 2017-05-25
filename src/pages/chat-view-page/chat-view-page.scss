@@ -1,3 +1,31 @@
-page-chat-view-page {
+.chat-view {
+  .messages {
+    
+    width: 100%;
+    position: absolute;
 
+    .message {
+      width: 70%;
+      padding: 5px 10px;
+      background: #FF9800;
+      color: #fff;
+      margin: 5px;
+      float: left;
+      border-radius: 10px;
+    }
+    .message.me {
+      float: right;
+      background: #fff;
+      //border: 1px solid #3F51B5;
+      color: #222;
+      text-align: right;
+      margin-right: 20px;
+    }
+  }
+ 
 }
+ .input-message{
+    color: #fff;
+    background: #000;
+
+  }
