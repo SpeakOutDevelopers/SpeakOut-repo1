@@ -7,5 +7,18 @@
 </ion-header>
 
 <ion-content>
-    <button ion-button (click)="signOut()" ></button>
+    <ion-list>
+        <ion-item-sliding  *ngFor="let chat of chats">
+            <ion-item (click)="openChat(chat.recipient)">
+                <ion-avatar item-left  >
+                        <img  src="https://alohab.myhappyco.com/images/img-profile.png">
+                </ion-avatar>
+                <span >{{chat.recipient.name}}</span><br>
+                <span class="last-message" >{{chat.last_message}}</span>
+            </ion-item>
+            <ion-item-options>
+                <button class="delete-button" (click)="removeChat(chat)"><ion-icon name="trash"></ion-icon> Delete</button>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
 </ion-content>
