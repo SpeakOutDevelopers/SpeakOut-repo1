@@ -20,20 +20,28 @@ export class RegisterEmailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.user = this.navParams.get("user");
   }
-  passToPassword(formData): void {
-    if (formData.valid) {
-      if (formData.value.email == null) {
-        return null;
-      }
-
+  passToPassword(formData): boolean {
+    if (formData.valid && (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formData.value.email)) ) {
       this.user.email = formData.value.email;
 
       this.navCtrl.push(RegisterPhotoPage, {
         user: this.user
       });
+      return true;
     }
+      
+      if (formData.value.email == null) {
+        return false;
+      }
+      alert("Email invalido");
+      
+
+      
 
   }
+
+
+  
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterEmailPage');

@@ -35,12 +35,23 @@ export class RegisterNamePage {
   constructor(public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams) {
   }
   passToGender(formData): void {
-    if (formData.valid) {
+    if (formData.valid ) {
      
+
       if (formData.value.first_name == ""||formData.value.first_name == null) {
         return null;
       }
+
+      if (formData.value.first_name.match(/\d+/g)){
+        alert("El nombre no puede tener numeros");
+        return null;
+      }
+
        if (formData.value.last_name == ""||formData.value.last_name == null) {
+      }
+
+      if(formData.value.last_name.match(/\d+/g)){
+         alert("El apellido no puede tener numeros");
         return null;
       }
       this.user.nombre = formData.value.first_name+" "+formData.value.last_name;
