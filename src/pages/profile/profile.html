@@ -1,11 +1,35 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Perfil
-    </ion-title>
-  </ion-navbar>
-</ion-header>
 
-<ion-content padding>
+
+<ion-content >
+
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="card">
+  <img src="img.jpg" alt="John" style="width:100%">
+  <div class="container">
+    <h1>{{user.nombre}}, {{user.edad}}</h1>
+
+    <p class="title"></p>
+
+    <p>{{user.sexo}}</p>
+    <p>Universidad Icesi</p>
+    <p>Cali,Colombia</p>
+    <p>Conocer otras ideas y personas que me permitan aprender y mejorar</p>
+    <p>Universidad Icesi</p>
+    <p>
+         <div  *ngFor="let lang of languages" >
+                    <b>{{ capitalizeFirstLetter(lang.nombre)}} </b> <ion-icon *ngFor='let tmp of stringToArray(lang.nivel)' name="star"></ion-icon>
+         </div>
+    </p>
+
+
+    <button ion-button icon-only>
+  <ion-icon name="md-create"></ion-icon>
+</button>
+
+  </div>
+</div>
 
 </ion-content>
