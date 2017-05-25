@@ -24,7 +24,7 @@ export class HomePage {
 
   parameterUbicacion:any;
   parameterFecha:any;
-  parameterIdioma:any;
+  parameterIdioma=[];
 
   testRadioOpen:any;
   testRadioResult:any;
@@ -54,6 +54,7 @@ export class HomePage {
     this.eventProvider.getEventosObservable().subscribe((eventos) => {
       this.eventosEstaticos = eventos;
       this.eventos=this.eventosEstaticos;
+      console.log(this.eventos);
     });
 
   }
@@ -101,20 +102,21 @@ filtrarFecha(){
 
 filtrarPorIdioma (){
 
+  let ret: any[]=[];
   this.eventosFiltrados=this.eventosEstaticos.filter((evento)=>{  
-  let ret: any[];
-     
-  evento.idiomas.forEach(element =>{
-    if(this.parameterIdioma==element){
+
+    evento.idiomas.forEach(element =>{
+    if(this.parameterIdioma.indexOf(element.nombre)>-1){
+      console.log(element)
       ret.push(evento);
     }
   });
-  return ret;
+ 
 
   });
 
-  this.eventos=this.eventosFiltrados;
-
+  this.eventos=ret;
+console.log(this.eventos)
   }
 
   addEvent(){
@@ -156,41 +158,44 @@ filtrarPorIdioma (){
     }
     openLanguageFilter() {
     
-      let alert = this.alertCtrl.create();
-      alert.setTitle('Idiomas que buscás');
+    let alert = this.alertCtrl.create();
+    alert.setTitle('MIS IDIOMAS');
 
-      this.idiomas.forEach(element => {
+    this.idiomas.forEach(element => {
 
-        alert.addInput({
-          type: 'checkbox',
-          label: element.nombre,
-          value: element.nombre,
-          checked: false
-        });
-
+      alert.addInput({
+      type: 'checkbox',
+      label: element.nombre,
+      value: element.nombre,
+      checked: false
       
-      });
+    });
+
+    });
 
     
 
-      
-
-    alert.addButton('Cancelar');
+    alert.addButton('Cancel');
     alert.addButton({
-      text: 'Filtrar',
+      text: 'OK',
       handler: data => {
-        console.log('Checkbox data:', data);
+        console.log(data)
+        this.parameterIdioma=data
+        console.log(this.parameterIdioma);
+        this.filtrarPorIdioma();
         this.testCheckboxOpen = false;
         this.testCheckboxResult = data;
+       
       }
     });
     alert.present();
+  
   }
 
   openUbicationFilter() {
   
     let alert = this.alertCtrl.create();
-    alert.setTitle('Lugar cercano');
+    alert.setTitle('Lugar Cercano');
 
     this.ubicaciones.forEach(element => {
 
@@ -211,10 +216,11 @@ filtrarPorIdioma (){
       text: 'OK',
       handler: data => {
         console.log(data)
-        this.parameterUbicacion=data
+        this.parameterUbicacion=data;
         this.filtrarPorubicacion();
         this.testRadioOpen = false;
         this.testRadioResult = data;
+      
       }
     });
     alert.present();
