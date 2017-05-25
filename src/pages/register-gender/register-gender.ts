@@ -1,3 +1,4 @@
+import { Usuario } from '../../commons/entities';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RegisterAgePage } from '../register-age/register-age';
@@ -14,25 +15,24 @@ import { RegisterAgePage } from '../register-age/register-age';
 })
 export class RegisterGenderPage {
 
-  user = {
-    first_name: "",
-    last_name: "",
-    gender: ""
-  };
+  user: Usuario;
+  token: any;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.user = this.navParams.get("user");
-    this.user.gender = "";
+    this.token = this.navParams.get("token");
+
   }
   passToAge(gender): void {
     if (gender == null || gender == "") {
       return null;
     }
-    this.user.gender = gender;
+    this.user.genero = gender;
 
     this.navCtrl.push(RegisterAgePage, {
-      user: this.user
+      user: this.user,
+      token: this.token
     });
 
   }
@@ -42,8 +42,6 @@ export class RegisterGenderPage {
     console.log('ionViewDidLoad RegisterGenderPage');
 
   }
-  meto() {
 
-  }
 
 }

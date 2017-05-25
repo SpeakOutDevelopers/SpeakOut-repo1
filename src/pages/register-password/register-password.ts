@@ -1,3 +1,5 @@
+import { RegisterEmailPage } from '../register-email/register-email';
+import { Usuario } from '../../commons/entities';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RegisterPhotoPage } from '../register-photo/register-photo';
@@ -13,28 +15,25 @@ import { RegisterPhotoPage } from '../register-photo/register-photo';
   templateUrl: 'register-password.html',
 })
 export class RegisterPasswordPage {
-  user = {
-    first_name: "",
-    last_name: "",
-    gender: "",
-    age: "",
-    email: "",
-    password: ""
-  };
+
+  user: Usuario;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.user = this.navParams.get("user");
-    this.user.password = "";
   }
    passToPhoto(formData): void {
     if (formData.valid) {
       if (formData.value.password == null) {
         return null;
       }
+      if(formData.value.password.length <= 5){
+        alert("La contraseña debe de minimo 6 caracteres");
+        return null;
+      }
 
-      this.user.password = formData.value.password;
+      this.user.contrasena = formData.value.password;
 
-      this.navCtrl.push(RegisterPhotoPage, {
+      this.navCtrl.push(RegisterEmailPage, {
         user: this.user
       });
     }

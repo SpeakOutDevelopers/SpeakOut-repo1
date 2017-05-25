@@ -1,5 +1,9 @@
+import { TabsPage } from '../tabs/tabs';
+import { UserProvider } from '../../providers/user-provider';
+import { RegisterGenderPage } from '../register-gender/register-gender';
+import { Usuario } from '../../commons/entities';
 import { Component, ViewChild  } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { RegisterNamePage } from '../register-name/register-name';
 import { LoginPage } from '../login-page/login-page';
 import { Slides } from 'ionic-angular';
@@ -27,7 +31,21 @@ export class IntroPage {
     'http://www.joelfloraphotography.com/wp-content/uploads/2016/01/1452052623-400x400.jpg',
     'https://68.media.tumblr.com/afa0c34cca805e9e79d0e76cc5681379/tumblr_onbo3aA9tV1re67v3o1_400.jpg',
     'https://images.8tracks.com/cover/i/008/562/610/Bad_Bitch-4914.jpg?rect=42,0,400,400&q=98&fm=jpg&fit=max'
-  ]
+  ];
+  user: Usuario = {
+    nombre:"",
+    genero:"",
+    universidad:"",
+    edad:0,
+    email:"",
+    img:"",
+    idiomas:[],
+    $key:"",
+    biografia:"",
+    tipoAutenticacion:"",
+    contrasena:""
+  };
+  token:any;
 
   constructor(
     public navCtrl: NavController, 
@@ -35,52 +53,86 @@ export class IntroPage {
     private afAuth: AngularFireAuth,
     private platform: Platform,
     private fb: Facebook,
-    public CC: CentralController
+    public CC: CentralController,
+    private userProvider: UserProvider
     ) {
   }
   ionViewDidLoad(){
     this.slides.autoplay = 5000;
   }
   login(){
-    console.log("login");
     this.navCtrl.push(LoginPage);
   }
   loginFB(){
-    //console.log("facebook");
-    //this.CC.showAlert("fb");
-
+    this.CC.setFbUserOnCreation(true);
     if (this.platform.is('cordova')) {
-      //alert("cordova");
+      
 
       this.fb.login(['email', 'public_profile']).then(res => {
-          
-          //alert("login");
-          this.CC.showAlert("response: "+JSON.stringify(res));
-
+          this.token = res.authResponse.accessToken;
           const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
           firebase.auth().signInWithCredential(facebookCredential)
             .then((success) => {
-              this.CC.showAlert(JSON.stringify(success));
+              
+              this.userProvider.getUserExistsSubject().subscribe((res)=>{
+                alert("intro res: "+JSON.stringify(res));
+                if(!res){
+                  this.user.$key= success.uid;
+                  this.user.nombre = success.displayName;
+                  this.user.email = success.email;
+                  this.user.img = success.photoURL;
+                  this.user.tipoAutenticacion = "facebook";
+                  console.log("sucess: "+JSON.stringify(this.user));
+                  alert(this.token);
+                  this.navCtrl.push(RegisterGenderPage, {
+                    user: this.user,
+                    token: this.token
+                  });
+                }else{
+                  this.CC.setFbUserOnCreation(false);
+                  //this.afAuth.auth.currentUser.reload();
+                  //this.navCtrl.setRoot(TabsPage);
+
+                }
+              });
+
+              this.userProvider.checkUserExists(success.uid);
+
             })
             .catch((error) => {
-              this.CC.showAlert("error auth: "+JSON.stringify(error));
+              this.CC.showAlert("error auth: "+JSON.stringify(error.message));
+              this.CC.setFbUserOnCreation(false);
           });
-      }, (err) => {
+      }).catch((err) => {
           this.CC.showAlert("error login: "+ JSON.stringify(err));
           console.log(err);
-          
+          this.CC.setFbUserOnCreation(false);
+
       });
       
-    }
-    else {
-      return this.afAuth.auth
-        .signInWithPopup(new firebase.auth.FacebookAuthProvider())
-        .then(res => console.log(res));
+    }else {
+      return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(response => {
+          this.user.$key= response.user.uid;
+          this.user.nombre = response.user.displayName;
+          this.user.email = response.user.email;
+          this.user.img = response.user.photoURL;
+          this.user.tipoAutenticacion = "facebook";
+          console.log(this.user);
+          alert(this.token);
+
+          this.navCtrl.push(RegisterGenderPage, {
+            user: this.user,
+            token: this.token
+          });
+          
+        }).catch((error) => {
+          alert(error.message);
+          this.CC.setFbUserOnCreation(false);
+        });
     }
   }
   
   crearCuenta(){
-    console.log("cuenta");
     this.navCtrl.push(RegisterNamePage);
   }
 

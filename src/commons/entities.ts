@@ -16,19 +16,16 @@ export interface Evento{
 
 export interface Usuario {
     $key: string,
-    idiomas: [{nombre: string, nivel: number}],
+    idiomas: any[],
     nombre: string,
     img: string,
     edad: number,
     biografia: string,
-    chats:[{
-        last_message: string,
-        recipient: {
-            key: string,
-            name: string,
-            img: string
-        } 
-    }]
+    genero: string,
+    universidad:string,
+    email:string,
+    tipoAutenticacion:string,
+    contrasena: string
 }
 
 export interface Idioma{

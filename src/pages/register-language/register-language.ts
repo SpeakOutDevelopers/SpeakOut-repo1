@@ -1,7 +1,14 @@
+import { TabsPage } from '../tabs/tabs';
+import { UserProvider } from '../../providers/user-provider';
+import { Usuario } from '../../commons/entities';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import {  NavController, NavParams, AlertController } from 'ionic-angular';
 import { EventProvider } from '../../providers/event-provider';
-import { CentralController } from '../../controllers/central.controller'
+import { CentralController } from '../../controllers/central.controller';
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+import { Facebook } from '@ionic-native/facebook';
+
 /**
  * Generated class for the RegisterLanguagePage page.
  *
@@ -14,6 +21,9 @@ import { CentralController } from '../../controllers/central.controller'
 })
 export class RegisterLanguagePage {
 
+  user: Usuario;
+  token: any;
+
   todosIdiomas = [];
   idiomaSelecionadoImg: any;
 
@@ -25,9 +35,17 @@ export class RegisterLanguagePage {
     public navParams: NavParams,
     public eventProvider: EventProvider,
     public alertCtrl: AlertController,
-    public CC: CentralController
+    public CC: CentralController,
+    private afAuth: AngularFireAuth,
+    public userProvider: UserProvider
+
     ) {
-    this.eventProvider.getIdiomasObservable().subscribe((idiomas) => {
+      this.user = this.navParams.get("user");
+      this.token = this.navParams.get("token");
+
+      alert("token :"+this.token);
+
+      this.eventProvider.getIdiomasObservable().subscribe((idiomas) => {
         this.todosIdiomas = idiomas;
         console.log(this.todosIdiomas);
       });
@@ -121,6 +139,50 @@ export class RegisterLanguagePage {
     let array = new Array(number);
 
     return array;
+  }
+  createUser(){
+    this.user.idiomas = this.languages;
+    
+    if(this.user.idiomas.length == 0){
+      return null;
+    }
+    alert("regist-lang creation user: "+JSON.stringify(this.user));
+    if(this.user.tipoAutenticacion == "simple"){
+      alert("auth simple");
+      this.afAuth.auth.createUserWithEmailAndPassword(
+        this.user.email,
+        this.user.contrasena
+      ).then((success) =>{
+        this.CC.presentLoading("Creando usuario");
+        delete this.user.$key;
+        this.userProvider.createUser(this.user, success.uid );
+        //this.userProvider.setCurrentUser(success.uid);
+        this.CC.setFbUserOnCreation(false);
+      },((error)=>{
+        alert(error.message);
+      }));
+
+    }else{
+      alert("auth fb");
+      let key = this.user.$key;
+      delete this.user.$key;
+      this.userProvider.createUser(this.user, key );
+      this.userProvider.setCurrentUser(key);
+      this.CC.setFbUserOnCreation(false);
+      
+      const facebookCredential = firebase.auth.FacebookAuthProvider.credential(this.token);
+      firebase.auth().signInWithCredential(facebookCredential).then().catch(e=>alert("Error: "+e.message));
+
+      
+      //this.afAuth.auth.signInWithCustomToken();
+    }
+
+
+
+
+    
+
+
   }
 
 

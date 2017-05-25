@@ -1,3 +1,4 @@
+import { CentralController } from '../../controllers/central.controller';
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -9,10 +10,11 @@ import { AngularFireAuth } from 'angularfire2/auth';
 })
 export class ChatsPage {
 
-  constructor(public navCtrl: NavController,  private afAuth: AngularFireAuth) {
+  constructor(public navCtrl: NavController,  private afAuth: AngularFireAuth, public CC: CentralController) {
 
   }
   signOut() {
+    this.CC.setFbUserOnCreation(false);
     this.afAuth.auth.signOut();
   }
 

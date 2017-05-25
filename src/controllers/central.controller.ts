@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
-import { ViewController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { ViewController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 
 
 @Injectable()
 export class CentralController {
 
-	loading:any;
+	loading:Loading;
+	fbUserOnCreation: boolean = false;
 
 	constructor(
 		public alertCtrl: AlertController,
 		public loadingCtrl: LoadingController
 		){
-
+		
 	}
 
     showAlert(alertmsg:string) {
@@ -33,6 +34,18 @@ export class CentralController {
 		this.loading.present();
 	}
 	dismissLoading(){
-    	this.loading.dismiss();
+		if(this.loading.isOverlay){
+    		this.loading.dismiss();
+		}
+	}
+	isFbUserOnCreation():boolean{
+		if(this.fbUserOnCreation==null || this.fbUserOnCreation==false || this.fbUserOnCreation==undefined){
+			return false;
+		}else{
+			return true;
+		}
+	}
+	setFbUserOnCreation(val: boolean):void{
+		this.fbUserOnCreation = val;
 	}
 }

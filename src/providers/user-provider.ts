@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable , } from 'angularfire2/database';
@@ -14,23 +15,24 @@ import { CentralController } from '../controllers/central.controller';
 export class UserProvider {
 
   currentUser: FirebaseObjectObservable<any>;
-
+  user:any;
+  userExistsSubject: Subject<any>;
+  
   constructor(
     public database: AngularFireDatabase,
     public CC: CentralController
     ) {
       console.log('Hello UserProvider Provider');
+      this.userExistsSubject = new Subject();
   }
 
     setCurrentUser(key){
-		this.currentUser = this.database.object('/usuarios/'+key);
-		this.currentUser.subscribe(
-			user => {
+      this.currentUser = this.database.object('/usuarios/'+key);
+      this.currentUser.subscribe((user) => {
+        this.user = user;
+        console.log(user);
         this.CC.dismissLoading();
-				this.currentUser = user;
-
-				console.log(user);
-			});
+      });
 
 	}
   getCurrentUserObservable(){
@@ -47,6 +49,20 @@ export class UserProvider {
 		let newUser = this.database.object(`/usuarios/${key}`);
 		newUser.update(user);
 	}
+
+  checkUserExists(key){
+
+    this.database.object(`/usuarios/${key}`,  { preserveSnapshot: true }).subscribe((user) => {
+      this.userExistsSubject.next(user.exists());
+      alert("usuario existe: "+user.exists())
+    });
+
+  }
+  getUserExistsSubject():Subject<any>{
+    return this.userExistsSubject;
+  }
+
+
 
   updateCurrentUser(newUserData:any){
     this.currentUser.update(newUserData);

@@ -1,3 +1,5 @@
+import { Usuario } from '../../commons/entities';
+import { RegisterPhotoPage } from '../register-photo/register-photo';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RegisterPasswordPage } from '../register-password/register-password';
@@ -13,17 +15,10 @@ import { RegisterPasswordPage } from '../register-password/register-password';
   templateUrl: 'register-email.html',
 })
 export class RegisterEmailPage {
-  user = {
-    first_name: "",
-    last_name: "",
-    gender: "",
-    age:"",
-    email: "",
-  };
+  user:Usuario;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.user = this.navParams.get("user");
-    this.user.email = "";
   }
   passToPassword(formData): void {
     if (formData.valid) {
@@ -33,7 +28,7 @@ export class RegisterEmailPage {
 
       this.user.email = formData.value.email;
 
-      this.navCtrl.push(RegisterPasswordPage, {
+      this.navCtrl.push(RegisterPhotoPage, {
         user: this.user
       });
     }

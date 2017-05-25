@@ -36,9 +36,12 @@ export class MyApp {
       splashScreen.hide();
 
       const authObserver = auth.authState.subscribe( user => {
+        alert("app.comp auth state: "+JSON.stringify(user));
         if (user) {
+          if(!this.CC.isFbUserOnCreation()){
             this.rootPage = TabsPage;
             this.userProvider.setCurrentUser(user.uid);
+          }
         } else {
             this.CC.dismissLoading();
             this.rootPage = IntroPage;

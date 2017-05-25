@@ -46,7 +46,7 @@ export class LoginPage {
         this.user.email,
         this.user.password
     ).then((success) => {
-        this.userProvider.setCurrentUser(success.uid);
+        //this.userProvider.setCurrentUser(success.uid);
         console.log(success);
     }, (err) => {
         this.error = err;
@@ -73,8 +73,6 @@ export class LoginPage {
         //     this.CC.showAlert(err.message);
         // })
     }
-    signUp(){
-    this.navCtrl.push(SignupPage);
-  }
+ 
 
 }

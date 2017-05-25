@@ -1,3 +1,6 @@
+import { Usuario } from '../../commons/entities';
+import { RegisterGenderPage } from '../register-gender/register-gender';
+import { RegisterAgePage } from '../register-age/register-age';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RegisterLanguagePage } from '../register-language/register-language';
@@ -13,19 +16,10 @@ import { RegisterLanguagePage } from '../register-language/register-language';
   templateUrl: 'register-photo.html',
 })
 export class RegisterPhotoPage {
-  user = {
-    first_name: "",
-    last_name: "",
-    gender: "",
-    age: "",
-    email: "",
-    password: "",
-    photo: ""
-  };
+  user: Usuario;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.user = this.navParams.get("user");
-    this.user.photo = "";
   }
   passToLanguage(formData): void {
     if (formData.valid) {
@@ -33,9 +27,9 @@ export class RegisterPhotoPage {
         return null;
       }
 
-      this.user.photo = "http://emprendeunblog.com/wp-content/uploads/2014/11/avatar.png";
+      this.user.img = "http://emprendeunblog.com/wp-content/uploads/2014/11/avatar.png";
 
-      this.navCtrl.push(RegisterLanguagePage, {
+      this.navCtrl.push(RegisterGenderPage, {
         user: this.user
       });
     }

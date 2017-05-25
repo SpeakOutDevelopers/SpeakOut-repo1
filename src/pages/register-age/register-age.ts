@@ -1,3 +1,5 @@
+import { Usuario } from '../../commons/entities';
+import { RegisterLanguagePage } from '../register-language/register-language';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { RegisterEmailPage } from '../register-email/register-email';
@@ -13,16 +15,12 @@ import { RegisterEmailPage } from '../register-email/register-email';
   templateUrl: 'register-age.html',
 })
 export class RegisterAgePage {
-  user = {
-    first_name: "",
-    last_name: "",
-    gender: "",
-    age: ""
-  };
+  user: Usuario
+  token:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.user = this.navParams.get("user");
-    this.user.age = "";
+    this.token = this.navParams.get("token");
   }
 
   passToEmail(formData): void {
@@ -30,11 +28,11 @@ export class RegisterAgePage {
       if (formData.value.age == null) {
         return null;
       }
-      this.user.age = formData.value.age;
+      this.user.edad = formData.value.age;
       
-
-      this.navCtrl.push(RegisterEmailPage, {
-        user: this.user
+      this.navCtrl.push(RegisterLanguagePage, {
+        user: this.user,
+        token: this.token
       });
     }
   }
