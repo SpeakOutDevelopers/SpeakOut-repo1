@@ -16,6 +16,9 @@
 <ion-content padding>
   <form #formData='ngForm'(ngSubmit)="passToPassword(formData)">
     <ion-grid>
+       <ion-item>
+        <ion-img width="260" height="140" src="../assets/img/img_email.png"></ion-img>  
+      </ion-item>
       <ion-item>
         <ion-input type="email" placeholder="Correo" (ngModel)="email" name="email" required></ion-input>
       </ion-item>

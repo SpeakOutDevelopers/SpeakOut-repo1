@@ -16,6 +16,9 @@
 <ion-content padding>
   <form #formData='ngForm' (ngSubmit)="passToEmail(formData)" >
     <ion-grid>
+       <ion-item>
+        <ion-img width="260" height="140" src="../assets/img/img_age.png"></ion-img>  
+      </ion-item>
       <ion-item>
         <ion-input type="number" placeholder="Edad" (ngModel)="age" name="age" required></ion-input>
       </ion-item>

@@ -6,35 +6,39 @@
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Login</ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <ion-title>Iniciá sesión</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
-<ion-content >
-  
-    <ion-list> 
-      <ion-item *ngIf="error">  
-        <span class="error" >{{ error }}</span>
-      </ion-item>
+<ion-content>
 
-      <ion-item>
-          <ion-input [(ngModel)]="user.email" type="email" placeholder="Email"></ion-input>
-      </ion-item>
+    <ion-list>
+        <ion-item *ngIf="error">
+            <span class="error">{{ error }}</span>
+        </ion-item>
 
-      <ion-item>
-          <ion-input [(ngModel)]="user.password" type="password" placeholder="Contraseña"></ion-input>
-      </ion-item>
-      
-        
-      <ion-item>
-          <button ion-button full  (tap)="login()" color="primary">Iniciar Sesión</button>
-    
-      </ion-item>
-      
-      <!--<ion-item>
+        <ion-item>
+            <ion-img width="260" height="260" src="../assets/img/logo_circ.png"></ion-img>
+        </ion-item>
+
+        <ion-item>
+            <ion-input [(ngModel)]="user.email" type="email" placeholder="Email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-input [(ngModel)]="user.password" type="password" placeholder="Contraseña"></ion-input>
+        </ion-item>
+
+
+        <ion-item>
+            <button ion-button full color="secondary" (tap)="login()">Entrar</button>
+
+        </ion-item>
+
+        <!--<ion-item>
           <button ion-button icon-left  (click)="loginFb()" id="fb" color=blue-5 >
               <ion-icon name="logo-facebook"></ion-icon>
               Continuar con Facebook
@@ -47,4 +51,4 @@
       </ion-item>-->
 
     </ion-list>
-</ion-content> 
+</ion-content>

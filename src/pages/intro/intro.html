@@ -1,18 +1,25 @@
-<ion-content >
+<ion-content>
+  <ion-row>
+    <ion-col>
+    </ion-col>
+    <ion-col witdh-40>
+      <a (click)="login()" color="secondary">
+        <u> Iniciá Sesión</u>
+      </a>
+    </ion-col>
+  </ion-row>
   <ion-slides #slides loop=true parallax=true>
     <ion-slide *ngFor="let img of images">
       <img src={{img}} alt="">
     </ion-slide>
   </ion-slides>
   <ion-grid>
-    <ion-row> 
+    <ion-row>
       <button color="primary" full ion-button (click)="loginFB()">Continuar con Facebook</button>
     </ion-row>
     <ion-row>
       <button color="secondary" full ion-button (click)="crearCuenta()">Crear Cuenta</button>
     </ion-row>
-    <ion-row>
-      <a class="center" (click)="login()"> <u> ¿Ya tienes cuenta? </u></a>
-    </ion-row>
+
   </ion-grid>
 </ion-content>

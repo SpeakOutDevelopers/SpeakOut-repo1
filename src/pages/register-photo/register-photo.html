@@ -16,6 +16,9 @@
 <ion-content padding>
   <form #formData='ngForm' (ngSubmit)="passToLanguage(formData)">
     <ion-grid>
+       <ion-item>
+        <ion-img width="280" height="150" src="../assets/img/img_photo.png"></ion-img>  
+      </ion-item>
       <ion-item>
         <ion-input type="text" placeholder="Imagen" (ngModel)="photo" name="photo" required></ion-input>
       </ion-item>

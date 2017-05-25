@@ -17,13 +17,16 @@
   <form #formData='ngForm' (ngSubmit)="passToGender(formData)" >
     <ion-grid>
       <ion-item>
+        <ion-img width="260" height="140" src="../assets/img/img_name.png"></ion-img>  
+      </ion-item>
+      <ion-item>
         <ion-input type="text" placeholder="Nombres" (ngModel)="first_name" name="first_name" required></ion-input>
       </ion-item>
       <ion-item>
         <ion-input type="text" placeholder="Apellidos" (ngModel)="last_name" name="last_name" required></ion-input>
       </ion-item>
       <ion-item>
-        <button ion-button block outline icon-left [disabled]="!formData.valid">
+        <button ion-button color="secondary" full [disabled]="!formData.valid">
               Continuar
             </button>
 
