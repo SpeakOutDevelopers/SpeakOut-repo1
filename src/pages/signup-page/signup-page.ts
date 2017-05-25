@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { UserProvider } from '../../providers/user-provider';
-import { AngularFire, AuthProviders, AuthMethods, FirebaseObjectObservable, FirebaseListObservable, AngularFireDatabase } from 'angularfire2';
+import {  FirebaseObjectObservable, FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireAuth} from 'angularfire2/auth';
 import { TabsPage } from '../tabs/tabs'; 
 import { CentralController } from '../../controllers/central.controller';
 
@@ -26,7 +27,7 @@ export class SignupPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public userProvider:UserProvider,
-    public af: AngularFire,
+    public af: AngularFireAuth,
     public CC : CentralController,
     public loadingCtrl: LoadingController,
 
@@ -39,10 +40,10 @@ export class SignupPage {
     onSubmit(formData) {
       if(formData.valid) {
         
-        this.af.auth.createUser({
-          email: formData.value.email,
-          password: formData.value.password
-        }).then((success) => {
+        this.af.auth.createUserWithEmailAndPassword(
+          formData.value.email,
+          formData.value.password
+        ).then((success) => {
 
             this.usuario = {
               nombre: formData.value.name,

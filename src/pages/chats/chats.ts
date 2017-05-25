@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { AngularFireAuth } from 'angularfire2/auth';
+
 
 @Component({
   selector: 'page-chats',
@@ -7,8 +9,11 @@ import { NavController } from 'ionic-angular';
 })
 export class ChatsPage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,  private afAuth: AngularFireAuth) {
 
+  }
+  signOut() {
+    this.afAuth.auth.signOut();
   }
 
 }

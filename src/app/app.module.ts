@@ -23,6 +23,11 @@ import { EventProvider } from '../providers/event-provider';
 import { CentralController } from '../controllers/central.controller';
 
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuth} from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
+
+import { Facebook } from '@ionic-native/facebook';
+
 
 import {IntroPage} from '../pages/intro/intro';
 import {RegisterNamePage} from '../pages/register-name/register-name';
@@ -32,11 +37,6 @@ import {RegisterEmailPage} from '../pages/register-email/register-email';
 import {RegisterPasswordPage} from '../pages/register-password/register-password';
 import {RegisterPhotoPage} from '../pages/register-photo/register-photo';
 import {RegisterLanguagePage} from '../pages/register-language/register-language';
-
-// import { DatePicker } from '@ionic-native/date-picker';
-
-
-
 
 
 export const firebaseConfig = {
@@ -114,6 +114,9 @@ import { ExpandableHeader } from "../components/expandable-header/expandable-hea
     ConfigurationProvider,
     EventProvider,
     CentralController,
+    AngularFireAuth,
+    AngularFireDatabase,
+    Facebook,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

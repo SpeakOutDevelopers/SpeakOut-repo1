@@ -1,9 +1,12 @@
 import { Component, ViewChild  } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { RegisterNamePage } from '../register-name/register-name';
 import { LoginPage } from '../login-page/login-page';
 import { Slides } from 'ionic-angular';
-
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+import { Facebook } from '@ionic-native/facebook';
+import {CentralController} from '../../controllers/central.controller';
 
 /**
  * Generated class for the IntroPage page.
@@ -26,7 +29,14 @@ export class IntroPage {
     'https://images.8tracks.com/cover/i/008/562/610/Bad_Bitch-4914.jpg?rect=42,0,400,400&q=98&fm=jpg&fit=max'
   ]
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,   
+    private afAuth: AngularFireAuth,
+    private platform: Platform,
+    private fb: Facebook,
+    public CC: CentralController
+    ) {
   }
   ionViewDidLoad(){
     this.slides.autoplay = 5000;
@@ -37,8 +47,34 @@ export class IntroPage {
   }
   loginFB(){
     console.log("facebook");
-    
+    //this.CC.showAlert("fb");
+
+    if (this.platform.is('cordova')) {
+      //alert("cordova");
+
+      this.fb.login(['email']).then(res => {
+          
+          this.CC.showAlert(JSON.stringify(res));
+          
+          // const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+          // firebase.auth().signInWithCredential(facebookCredential)
+          //   .then((success) => {
+          //     this.CC.showAlert(JSON.stringify(success));
+          //   })
+          //   .catch((error) => {
+          //     this.CC.showAlert(JSON.stringify(error));
+          // });
+      }, (err) => {
+          this.CC.showAlert(JSON.stringify(err));
+      });
+    }
+    else {
+      return this.afAuth.auth
+        .signInWithPopup(new firebase.auth.FacebookAuthProvider())
+        .then(res => console.log(res));
+    }
   }
+  
   crearCuenta(){
     console.log("cuenta");
     this.navCtrl.push(RegisterNamePage);

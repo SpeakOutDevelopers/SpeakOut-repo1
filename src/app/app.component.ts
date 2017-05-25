@@ -3,7 +3,7 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import {FirebaseAuth} from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { LoginPage } from '../pages/login-page/login-page';
 import { TabsPage } from '../pages/tabs/tabs';
 import { IntroPage } from '../pages/intro/intro';
@@ -21,7 +21,7 @@ export class MyApp {
 
   constructor(
     platform: Platform,
-    public auth: FirebaseAuth, 
+    public auth: AngularFireAuth, 
     statusBar: StatusBar, 
     splashScreen: SplashScreen, 
     public userProvider: UserProvider,
@@ -35,7 +35,7 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-      const authObserver = auth.subscribe( user => {
+      const authObserver = auth.authState.subscribe( user => {
         if (user) {
             this.rootPage = TabsPage;
             this.userProvider.setCurrentUser(user.uid);
