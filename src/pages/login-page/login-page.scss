@@ -1,4 +1,12 @@
 page-login-page {
+    
+    ion-content{
+        background-image: url('../../assets/img/intro2.jpg');
+        background-color: transparent!important;
+        background-size:cover!important;
+        background-position: 50% 50px !important;
+    }
+
     ion-item{
       background-color: transparent !important;   
     }

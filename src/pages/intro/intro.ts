@@ -27,9 +27,9 @@ export class IntroPage {
   @ViewChild('slides') slides: Slides;
 
   images = [
-    '../../assets/img/intro1.jpg',
-    '../../assets/img/intro2.jpg',
-    '../../assets/img/intro3.jpg'
+    '../../assets/img/intro1text.jpg',
+    '../../assets/img/intro2text.jpg',
+    '../../assets/img/intro3text.jpg'
   ];
   user: Usuario = {
     nombre:"",

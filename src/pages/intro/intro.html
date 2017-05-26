@@ -1,12 +1,11 @@
 <ion-content>
   <ion-row>
-    <ion-col>
-    </ion-col>
-    <ion-col witdh-40>
-      <a (click)="login()" color="secondary">
+
+
+      <a (click)="login()" color="secondary" style="display:block;margin:auto;">
         <u> Iniciá Sesión</u>
       </a>
-    </ion-col>
+
   </ion-row>
   <ion-slides #slides loop=true parallax=true>
     <ion-slide *ngFor="let img of images">
