@@ -72,23 +72,22 @@ export class IntroPage {
           const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
           firebase.auth().signInWithCredential(facebookCredential)
             .then((success) => {
-              
+              alert("autenticado con fb: "+JSON.stringify(success));
               this.userProvider.getUserExistsSubject().subscribe((res)=>{
-                alert("intro res: "+JSON.stringify(res));
+                alert("intro usuario existe : "+JSON.stringify(res));
                 if(!res){
                   this.user.$key= success.uid;
                   this.user.nombre = success.displayName;
                   this.user.email = success.email;
                   this.user.img = success.photoURL;
                   this.user.tipoAutenticacion = "facebook";
-                  console.log("sucess: "+JSON.stringify(this.user));
-                  alert(this.token);
+                  console.log("usuario parcial con fb: "+JSON.stringify(this.user));
+     
                   this.navCtrl.push(RegisterGenderPage, {
                     user: this.user,
                     token: this.token
                   });
                 }else{
-                  this.CC.setFbUserOnCreation(false);
                   //this.afAuth.auth.currentUser.reload();
                   //this.navCtrl.setRoot(TabsPage);
 

@@ -59,7 +59,7 @@ export class UserProvider {
 
     this.database.object(`/usuarios/${key}`,  { preserveSnapshot: true }).subscribe((user) => {
       this.userExistsSubject.next(user.exists());
-      alert("usuario existe: "+user.exists())
+      //alert("usuario existe: "+user.exists())
     });
 
   }
