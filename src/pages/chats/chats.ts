@@ -25,10 +25,11 @@ export class ChatsPage {
     public modalCtrl: ModalController,
     public CC: CentralController 
     ) {
-      // this.CC.presentLoading("Cargando chats");
+      this.CC.presentLoading("Cargando chats");
+
       this.chatsProvider.getChatsObservable().subscribe((chats) => {
           this.chats = chats;
-          //console.log("CHATS: ",this.chats);
+          console.log("CHATS: ",this.chats);
           
           // this.CC.dismissLoading();
       });

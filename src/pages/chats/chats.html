@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content>
-    <ion-list>
+    <ion-list *ngIf="(chats)">
         <ion-item-sliding  *ngFor="let chat of chats">
             <ion-item (click)="openChat(chat.destinatario)">
                 <ion-avatar item-left  >

@@ -63,71 +63,60 @@ export class IntroPage {
     this.navCtrl.push(LoginPage);
   }
   loginFB(){
-    this.CC.setFbUserOnCreation(true);
+    this.CC.presentLoading("Auntenticando con Facebook");
     if (this.platform.is('cordova')) {
       
 
       this.fb.login(['email', 'public_profile']).then(res => {
           this.token = res.authResponse.accessToken;
           const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-          firebase.auth().signInWithCredential(facebookCredential)
-            .then((success) => {
+          firebase.auth().signInWithCredential(facebookCredential).then(
+            (success) => {
               alert("autenticado con fb: "+JSON.stringify(success));
-              this.userProvider.getUserExistsSubject().subscribe((res)=>{
-                alert("intro usuario existe : "+JSON.stringify(res));
-                if(!res){
-                  this.user.$key= success.uid;
-                  this.user.nombre = success.displayName;
-                  this.user.email = success.email;
-                  this.user.img = success.photoURL;
-                  this.user.tipoAutenticacion = "facebook";
-                  console.log("usuario parcial con fb: "+JSON.stringify(this.user));
-     
-                  this.navCtrl.push(RegisterGenderPage, {
-                    user: this.user,
-                    token: this.token
-                  });
-                }else{
-                  //this.afAuth.auth.currentUser.reload();
-                  //this.navCtrl.setRoot(TabsPage);
-
-                }
-              });
-
-              //this.userProvider.checkUserExists(success.uid);
+              
+              this.createUserFb(success);
 
             })
-            .catch((error) => {
-              this.CC.showAlert("error auth: "+JSON.stringify(error.message));
-              this.CC.setFbUserOnCreation(false);
+            .catch(
+              (error) => {
+                this.CC.showAlert("error auth: "+JSON.stringify(error.message));
+                this.CC.setFbUserOnCreation(false);
           });
       }).catch((err) => {
           this.CC.showAlert("error login: "+ JSON.stringify(err));
-          console.log(err);
-          this.CC.setFbUserOnCreation(false);
-
       });
       
     }else {
-      return this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(response => {
-          this.user.$key= response.user.uid;
-          this.user.nombre = response.user.displayName;
-          this.user.email = response.user.email;
-          this.user.img = response.user.photoURL;
-          this.user.tipoAutenticacion = "facebook";
-          console.log(this.user);
-          alert(this.token);
+      this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(
+        (response) => {
 
-          this.navCtrl.push(RegisterGenderPage, {
-            user: this.user,
-            token: this.token
-          });
+          this.CC.showAlert("pop fb login "+ JSON.stringify(response));
+          console.log("pop fb login ",response);
           
-        }).catch((error) => {
-          alert(error.message);
-          this.CC.setFbUserOnCreation(false);
+          this.token = response.credential.accessToken;
+
+          this.createUserFb(response.user);
+          
+        }).catch(
+          (error) => {
+            alert(error.message);
+            this.CC.dismissLoading();
         });
     }
+  }
+
+  createUserFb(success){
+    this.user.$key= success.uid;
+    this.user.nombre = success.displayName;
+    this.user.email = success.email;
+    this.user.img = success.photoURL;
+    this.user.tipoAutenticacion = "facebook";
+    console.log("usuario parcial con fb: "+JSON.stringify(this.user));
+
+    this.navCtrl.push(RegisterGenderPage, {
+      user: this.user,
+      token: this.token
+    });
   }
   
   crearCuenta(){

@@ -12,6 +12,7 @@ export class CentralController {
 		public alertCtrl: AlertController,
 		public loadingCtrl: LoadingController
 		){
+			this.loading = this.loadingCtrl.create();
 		
 	}
 
@@ -28,15 +29,12 @@ export class CentralController {
 	}
 	presentLoading(message: string) {
 
-		this.loading = this.loadingCtrl.create({
-			content: message+"...",
-		});
-		this.loading.present();
+		// this.loading.setContent(message);
+		// this.loading.present();
 	}
 	dismissLoading(){
-		if(this.loading.isOverlay){
-    		this.loading.dismiss();
-		}
+		// this.loading.dismiss();
+		
 	}
 	isFbUserOnCreation():boolean{
 		if(this.fbUserOnCreation==null || this.fbUserOnCreation==false || this.fbUserOnCreation==undefined){
