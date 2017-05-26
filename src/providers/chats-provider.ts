@@ -54,7 +54,11 @@ export class ChatsProvider {
         console.log("DESTINATARIO: ",destinatario);
 
         if(this.user.$key == destinatario.key){
+<<<<<<< HEAD
             //alert("No se puede chat consigo mismo");
+=======
+            this.CC.presentToast("No se puede chatear consigo mismo",1000);
+>>>>>>> fblogin
             return false;
         }
         this.recentEndpoint1 = this.database.object(`/usuarios/${this.user.$key}/chats/${destinatario.key}`);
@@ -97,8 +101,8 @@ export class ChatsProvider {
     openChat(destinatario){
         console.log("ABRIR CHAT DESTINATORIO:",destinatario);
 
-        this.currentChatRef1 = this.database.list(`/messages/${this.user.$key},${destinatario.key}`);
-        this.currentChatRef2 = this.database.list(`/messages/${destinatario.key},${this.user.$key}`);
+        this.currentChatRef1 = this.database.list(`/mensajes/${this.user.$key},${destinatario.key}`);
+        this.currentChatRef2 = this.database.list(`/mensajes/${destinatario.key},${this.user.$key}`);
 
         this.recentEndpoint1 = this.database.object(`/usuarios/${this.user.$key}/chats/${destinatario.key}`);
         this.recentEndpoint2 = this.database.object(`/usuarios/${destinatario.key}/chats/${this.user.$key}`);
@@ -106,7 +110,7 @@ export class ChatsProvider {
     }
     deleteChat(chat){
         if(this.allMessages==null){
-            alert("Error: mensajes nulos");
+            this.CC.presentToast("Error: mensajes nulos",0);
             return null;
         }
         try {

@@ -43,7 +43,7 @@ export class RegisterLanguagePage {
       this.user = this.navParams.get("user");
       this.token = this.navParams.get("token");
 
-      alert("token :"+this.token);
+      //alert("token :"+this.token);
 
       this.eventProvider.getIdiomasObservable().subscribe((idiomas) => {
         this.todosIdiomas = idiomas;
@@ -144,32 +144,37 @@ export class RegisterLanguagePage {
     this.user.idiomas = this.languages;
     
     if(this.user.idiomas.length == 0){
-      alert("No has selecconado idiomas");
+      this.CC.presentToast("No has seleccionado idiomas",0);
       return null;
     }
-    alert("regist-lang creation user: "+JSON.stringify(this.user));
+    //alert("regist-lang creation user: "+JSON.stringify(this.user));
+    
     if(this.user.tipoAutenticacion == "simple"){
-      alert("auth simple");
+      this.CC.presentToast("Creando usuario...",1000);
+      //alert("auth simple");
+      
       this.afAuth.auth.createUserWithEmailAndPassword(
         this.user.email,
         this.user.contrasena
       ).then((success) =>{
-        this.CC.presentLoading("Creando usuario");
+        // this.CC.presentLoading("Creando usuario");
         delete this.user.$key;
         this.userProvider.createUser(this.user, success.uid );
         //this.userProvider.setCurrentUser(success.uid);
-        this.CC.setFbUserOnCreation(false);
+        // this.CC.setFbUserOnCreation(false);
       },((error)=>{
-        alert(error.message);
+        this.CC.presentToast("error.message",0);
+        // alert();
       }));
 
     }else{
-      alert("auth fb");
+      // alert("auth fb");
+      this.CC.presentToast("Creando con Facebook...",1000);
       let key = this.user.$key;
       delete this.user.$key;
       this.userProvider.createUser(this.user, key );
       this.userProvider.setCurrentUser(key);
-      this.CC.setFbUserOnCreation(false);
+      // this.CC.setFbUserOnCreation(false);
       
 
       const facebookCredential = firebase.auth.FacebookAuthProvider.credential(this.token);

@@ -1,3 +1,5 @@
+import { CentralController } from '../../controllers/central.controller';
+import { createNgZone } from '@angular/platform-browser/testing/src/browser_util';
 import { Usuario } from '../../commons/entities';
 import { RegisterPhotoPage } from '../register-photo/register-photo';
 import { Component } from '@angular/core';
@@ -17,7 +19,7 @@ import { RegisterPasswordPage } from '../register-password/register-password';
 export class RegisterEmailPage {
   user:Usuario;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public CC: CentralController) {
     this.user = this.navParams.get("user");
   }
   passToPassword(formData): boolean {
@@ -30,14 +32,11 @@ export class RegisterEmailPage {
       return true;
     }
       
-      if (formData.value.email == null) {
-        return false;
-      }
-      alert("Email invalido");
+    if (formData.value.email == null) {
+      return false;
+    }
+    this.CC.presentToast("Email invalido",0);
       
-
-      
-
   }
 
 

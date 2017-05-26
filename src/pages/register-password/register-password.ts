@@ -1,3 +1,4 @@
+import { CentralController } from '../../controllers/central.controller';
 import { RegisterEmailPage } from '../register-email/register-email';
 import { Usuario } from '../../commons/entities';
 import { Component } from '@angular/core';
@@ -18,7 +19,7 @@ export class RegisterPasswordPage {
 
   user: Usuario;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public CC: CentralController) {
     this.user = this.navParams.get("user");
   }
    passToPhoto(formData): void {
@@ -27,7 +28,8 @@ export class RegisterPasswordPage {
         return null;
       }
       if(formData.value.password.length <= 5){
-        alert("La contraseña debe de minimo 6 caracteres");
+        // alert("La contraseña debe de minimo 6 caracteres");
+        this.CC.presentToast("La contraseña debe de minimo 6 caracteres",0); 
         return null;
       }
 

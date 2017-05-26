@@ -34,6 +34,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+<<<<<<< HEAD
 
       const authObserver = auth.authState.subscribe( user => {
         //alert("app.comp auth state: "+JSON.stringify(user));
@@ -45,6 +46,31 @@ export class MyApp {
         } else {
             this.CC.dismissLoading();
             this.rootPage = IntroPage;
+=======
+      
+      this.userProvider.getUserExistsSubject().subscribe((userExists)=>{
+        //alert("user exists "+userExists);
+        if(userExists){
+          this.rootPage = TabsPage;
+          this.userProvider.setCurrentUser(this.userKey);
+        } else {
+          this.CC.dismissLoading();
+          this.rootPage = IntroPage;
+        }
+      });
+
+      const authObserver = auth.authState.subscribe( user => {
+        // alert("app.comp auth state: "+JSON.stringify(user));
+        this.CC.presentLoading("Auntenticando...");
+        
+        if(user){
+          
+          this.userKey = user.uid;
+          this.userProvider.queryUserExists(user.uid);
+        }else{
+          this.CC.dismissLoading();
+          this.rootPage = IntroPage;
+>>>>>>> fblogin
         }
       });
     });

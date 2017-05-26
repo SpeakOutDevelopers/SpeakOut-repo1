@@ -125,7 +125,8 @@ console.log(this.eventos)
   }
 
   addEvent(){
-    this.CC.presentLoading("Cargando");
+    this.CC.presentToast("Cargando...",200);
+
 
     let modal = this.modalCtrl.create(AddEventPage);
 

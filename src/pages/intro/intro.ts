@@ -64,6 +64,8 @@ export class IntroPage {
   }
   loginFB(){
     this.CC.presentLoading("Auntenticando con Facebook");
+    this.CC.presentToast("Iniciando auntenticaion...",100);
+
     if (this.platform.is('cordova')) {
       
 
@@ -72,18 +74,31 @@ export class IntroPage {
           const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
           firebase.auth().signInWithCredential(facebookCredential).then(
             (success) => {
+<<<<<<< HEAD
               //alert("autenticado con fb: "+JSON.stringify(success));
+=======
+              // alert("autenticado con fb: "+JSON.stringify(success));
+              this.CC.presentToast("Autenticado!",2000);
+>>>>>>> fblogin
               
               this.createUserFb(success);
 
             })
             .catch(
               (error) => {
+<<<<<<< HEAD
                 this.CC.showAlert("Error de autenticacion "+(error.message));
                 this.CC.setFbUserOnCreation(false);
           });
       }).catch((err) => {
           this.CC.showAlert("Error de login: "+ JSON.stringify(err));
+=======
+                this.CC.showAlert("error auth: "+JSON.stringify(error.message));
+                //this.CC.setFbUserOnCreation(false);
+          });
+      }).catch((err) => {
+          this.CC.showAlert("Error login: "+ JSON.stringify(err.errorMessage));
+>>>>>>> fblogin
       });
       
     }else {
@@ -91,8 +106,14 @@ export class IntroPage {
         (response) => {
 
           //this.CC.showAlert("pop fb login "+ JSON.stringify(response));
+<<<<<<< HEAD
           console.log("pop fb login ",response);
           
+=======
+          //console.log("pop fb login ",response);
+          this.CC.presentToast("Autenticado!",2000);
+
+>>>>>>> fblogin
           this.token = response.credential.accessToken;
 
           this.createUserFb(response.user);
@@ -111,7 +132,7 @@ export class IntroPage {
     this.user.email = success.email;
     this.user.img = success.photoURL;
     this.user.tipoAutenticacion = "facebook";
-    console.log("usuario parcial con fb: "+JSON.stringify(this.user));
+    //console.log("usuario parcial con fb: "+JSON.stringify(this.user));
 
     this.navCtrl.push(RegisterGenderPage, {
       user: this.user,

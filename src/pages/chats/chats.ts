@@ -25,7 +25,8 @@ export class ChatsPage {
     public modalCtrl: ModalController,
     public CC: CentralController 
     ) {
-      this.CC.presentLoading("Cargando chats");
+      this.CC.presentToast("Cargando chats",500);
+
 
       this.chatsProvider.getChatsObservable().subscribe((chats) => {
           this.chats = chats;
@@ -45,7 +46,8 @@ export class ChatsPage {
   removeChat(chat){
     console.log(chat);
     this.chatsProvider.deleteChat(chat);
-    alert("Chat eliminado");
+    //alert("Chat eliminado");
+    this.CC.presentToast("Chat eliminado",0);
   }
 
 }
