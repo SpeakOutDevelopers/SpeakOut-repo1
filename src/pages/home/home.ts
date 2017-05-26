@@ -146,7 +146,7 @@ console.log(this.eventos)
     };
 
   function onSuccess(date) {
-      alert('Selected date: ' + date);
+      //alert('Selected date: ' + date);
   }
 
   function onError(error) { // Android only

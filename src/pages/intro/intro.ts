@@ -72,25 +72,25 @@ export class IntroPage {
           const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
           firebase.auth().signInWithCredential(facebookCredential).then(
             (success) => {
-              alert("autenticado con fb: "+JSON.stringify(success));
+              //alert("autenticado con fb: "+JSON.stringify(success));
               
               this.createUserFb(success);
 
             })
             .catch(
               (error) => {
-                this.CC.showAlert("error auth: "+JSON.stringify(error.message));
+                this.CC.showAlert("Error de autenticacion "+(error.message));
                 this.CC.setFbUserOnCreation(false);
           });
       }).catch((err) => {
-          this.CC.showAlert("error login: "+ JSON.stringify(err));
+          this.CC.showAlert("Error de login: "+ JSON.stringify(err));
       });
       
     }else {
       this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(
         (response) => {
 
-          this.CC.showAlert("pop fb login "+ JSON.stringify(response));
+          //this.CC.showAlert("pop fb login "+ JSON.stringify(response));
           console.log("pop fb login ",response);
           
           this.token = response.credential.accessToken;
