@@ -84,19 +84,13 @@ export class IntroPage {
             })
             .catch(
               (error) => {
-<<<<<<< HEAD
-                this.CC.showAlert("Error de autenticacion "+(error.message));
-                this.CC.setFbUserOnCreation(false);
-          });
-      }).catch((err) => {
-          this.CC.showAlert("Error de login: "+ JSON.stringify(err));
-=======
+
                 this.CC.showAlert("error auth: "+JSON.stringify(error.message));
                 //this.CC.setFbUserOnCreation(false);
           });
       }).catch((err) => {
           this.CC.showAlert("Error login: "+ JSON.stringify(err.errorMessage));
->>>>>>> fblogin
+
       });
       
     }else {
@@ -104,14 +98,11 @@ export class IntroPage {
         (response) => {
 
           //this.CC.showAlert("pop fb login "+ JSON.stringify(response));
-<<<<<<< HEAD
-          console.log("pop fb login ",response);
-          
-=======
+
           //console.log("pop fb login ",response);
           this.CC.presentToast("Autenticado!",2000);
 
->>>>>>> fblogin
+
           this.token = response.credential.accessToken;
 
           this.createUserFb(response.user);
