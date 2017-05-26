@@ -18,6 +18,7 @@ import { CentralController } from '../controllers/central.controller';
 })
 export class MyApp {
   rootPage:any = IntroPage;
+  userKey: string;
 
   constructor(
     platform: Platform,
@@ -25,28 +26,39 @@ export class MyApp {
     statusBar: StatusBar, 
     splashScreen: SplashScreen, 
     public userProvider: UserProvider,
-    public CC: CentralController
+    public CC: CentralController,
     ) {
-    this.CC.presentLoading("Auntenticando");
 
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      
+      this.userProvider.getUserExistsSubject().subscribe((userExists)=>{
+        alert("user exists "+userExists);
+        if(userExists){
+          this.rootPage = TabsPage;
+          this.userProvider.setCurrentUser(this.userKey);
+        } else {
+          this.CC.dismissLoading();
+          this.rootPage = IntroPage;
+        }
+      });
 
       const authObserver = auth.authState.subscribe( user => {
         alert("app.comp auth state: "+JSON.stringify(user));
-        if (user) {
-          if(!this.CC.isFbUserOnCreation()){
-            this.rootPage = TabsPage;
-            this.userProvider.setCurrentUser(user.uid);
-          }
-        } else {
-            this.CC.dismissLoading();
-            this.rootPage = IntroPage;
+        this.CC.presentLoading("Auntenticando");
+        
+        if(user){
+          this.userKey = user.uid;
+          this.userProvider.queryUserExists(user.uid);
+        }else{
+          this.CC.dismissLoading();
+          this.rootPage = IntroPage;
         }
       });
+
     });
   }
 }

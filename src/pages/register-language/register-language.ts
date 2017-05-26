@@ -144,6 +144,7 @@ export class RegisterLanguagePage {
     this.user.idiomas = this.languages;
     
     if(this.user.idiomas.length == 0){
+      alert("No has selecconado idiomas");
       return null;
     }
     alert("regist-lang creation user: "+JSON.stringify(this.user));
@@ -170,11 +171,9 @@ export class RegisterLanguagePage {
       this.userProvider.setCurrentUser(key);
       this.CC.setFbUserOnCreation(false);
       
-      const facebookCredential = firebase.auth.FacebookAuthProvider.credential(this.token);
-      firebase.auth().signInWithCredential(facebookCredential).then().catch(e=>alert("Error: "+e.message));
 
-      
-      //this.afAuth.auth.signInWithCustomToken();
+      const facebookCredential = firebase.auth.FacebookAuthProvider.credential(this.token);
+      firebase.auth().currentUser.reauthenticate(facebookCredential).catch(e=>alert("Error: "+e.message));
     }
 
 

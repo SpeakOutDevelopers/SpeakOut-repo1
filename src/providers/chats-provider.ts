@@ -1,5 +1,6 @@
+import { CentralController } from '../controllers/central.controller';
 import { Observable, Subject } from 'rxjs/Rx';
-import { UserProvider } from './user-provider';
+// import { UserProvider } from './user-provider';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
@@ -32,20 +33,28 @@ export class ChatsProvider {
 
     constructor(
         public database: AngularFireDatabase, 
-        public userProvider: UserProvider
+        // public userProvider: UserProvider,
+        public CC: CentralController
         ){
+        
         this.chatsSubject = new Subject();
         this.allMessages = this.database.list('/mensajes');
-        this.userProvider.getCurrentUserSubject().subscribe((user)=>{
-            this.user = user;
-            this.chatsObservable = this.database.list(`/usuarios/${this.user.$key}/chats`);
-        });
+        // this.userProvider.getCurrentUserSubject().subscribe((user)=>{
+           
+           
+        //     // this.CC.dismissLoading();
+        // });
+    }
+    init(user){
+        this.user = user;
+        this.chatsObservable = this.database.list(`/usuarios/${this.user.$key}/chats`);
     }
 
     createChat(destinatario: any){
         console.log("DESTINATARIO: ",destinatario);
 
-        if(this.user.$key === destinatario.key){
+        if(this.user.$key == destinatario.key){
+            alert("No se puede chat consigo mismo");
             return false;
         }
         this.recentEndpoint1 = this.database.object(`/usuarios/${this.user.$key}/chats/${destinatario.key}`);

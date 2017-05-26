@@ -1,3 +1,4 @@
+import { ChatsProvider } from './chats-provider';
 import { Subject } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
@@ -18,10 +19,12 @@ export class UserProvider {
   user:any;
   userExistsSubject: Subject<any>;
   currentUserSubject: Subject<any>;
-  
+  userExists:boolean = false;
+
   constructor(
     public database: AngularFireDatabase,
-    public CC: CentralController
+    public CC: CentralController,
+    public chatsProvider:ChatsProvider
     ) {
       console.log('Hello UserProvider Provider');
       this.userExistsSubject = new Subject();
@@ -33,13 +36,26 @@ export class UserProvider {
       this.currentUser.subscribe((user) => {
         this.user = user;
         console.log("user-provider current user: ",user);
-        console.log();
-        
+        this.chatsProvider.init(user);
         this.currentUserSubject.next(user);
-        this.CC.dismissLoading();
+        //this.CC.dismissLoading();
       });
 
 	}
+  queryUserExists(key:string){
+    this.database.object('/usuarios/'+key, { preserveSnapshot: true }).subscribe((user) => {
+      //alert("provider usuario existe: "+JSON.stringify(user));
+      console.log("exists",user.exists());
+      
+      if(!user.exists()){
+        alert("El usuario no esta creado completamente");
+        this.userExistsSubject.next(false);
+      }else{
+        this.userExistsSubject.next(true);
+      }
+    });
+  }
+
   getCurrentUserObservable(){
     return this.currentUser;
   }
@@ -55,14 +71,10 @@ export class UserProvider {
 		newUser.update(user);
 	}
 
-  checkUserExists(key){
-
-    this.database.object(`/usuarios/${key}`,  { preserveSnapshot: true }).subscribe((user) => {
-      this.userExistsSubject.next(user.exists());
-      alert("usuario existe: "+user.exists())
-    });
-
+  checkUserExists(key:string):boolean{
+    return 
   }
+
   getUserExistsSubject():Subject<any>{
     return this.userExistsSubject;
   }
