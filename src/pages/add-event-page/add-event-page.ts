@@ -116,7 +116,7 @@ export class AddEventPage {
   save(formData): void {
 
      if(formData.valid){
-
+      this.CC.presentToast("Creando evento",1000);
         if(this.languages.length < 1){
           this.CC.showAlert("La lista de idiomas esta vacía");
           return null;
@@ -143,7 +143,7 @@ export class AddEventPage {
           }
         };
         
-        console.log("CREANDO EVENTO:",this.evento);
+        //console.log("CREANDO EVENTO:",this.evento);
         this.viewCtrl.dismiss(this.evento);
      }
   }
@@ -208,21 +208,21 @@ export class AddEventPage {
     return this.todosIdiomas.findIndex(x => x.nombre === languageName);
   }
 
-  presentLoadingDefault() {
-    let listaCargaTxt = [' idiomas...',' ubicaciones..', ' informacion...', 'usuario...', '...'];
-    let loading = this.loadingCtrl.create({
-      content: 'Cargando'+listaCargaTxt[this.contadorCarga]
-    });
+  // presentLoadingDefault() {
+  //   let listaCargaTxt = [' idiomas...',' ubicaciones..', ' informacion...', 'usuario...', '...'];
+  //   let loading = this.loadingCtrl.create({
+  //     content: 'Cargando'+listaCargaTxt[this.contadorCarga]
+  //   });
 
-    loading.present();
+  //   loading.present();
 
-    setTimeout(() => {
-      //lo que pasa cuando se cumple el timeout
-      loading.dismiss();
-      this.contadorCarga++;
-      this.init();
-    }, 3000/*tiempo de duracion del timeout*/);
-  }
+  //   setTimeout(() => {
+  //     //lo que pasa cuando se cumple el timeout
+  //     loading.dismiss();
+  //     this.contadorCarga++;
+  //     this.init();
+  //   }, 3000/*tiempo de duracion del timeout*/);
+  // }
   getUbicacion(){
     let index = this.ubicaciones.findIndex(x => x.nombre === this.ubicacion);    
     return this.ubicaciones[index];

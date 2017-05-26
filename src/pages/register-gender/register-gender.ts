@@ -1,3 +1,4 @@
+import { CentralController } from '../../controllers/central.controller';
 import { Usuario } from '../../commons/entities';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -19,13 +20,14 @@ export class RegisterGenderPage {
   token: any;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public CC:CentralController) {
     this.user = this.navParams.get("user");
     this.token = this.navParams.get("token");
 
   }
   passToAge(gender): void {
     if (gender == null || gender == "") {
+      this.CC.presentToast("Datos invalidos",0);
       return null;
     }
     this.user.genero = gender;

@@ -25,7 +25,8 @@ export class ProfilePage {
   }
 
   signOut() {
-    this.CC.setFbUserOnCreation(false);
+    // this.CC.setFbUserOnCreation(false);
+    this.CC.presentToast("Cerrando sesion...",500);
     this.afAuth.auth.signOut();
   }
 

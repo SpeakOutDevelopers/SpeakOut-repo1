@@ -36,7 +36,7 @@ export class MyApp {
       splashScreen.hide();
       
       this.userProvider.getUserExistsSubject().subscribe((userExists)=>{
-        alert("user exists "+userExists);
+        //alert("user exists "+userExists);
         if(userExists){
           this.rootPage = TabsPage;
           this.userProvider.setCurrentUser(this.userKey);
@@ -47,10 +47,11 @@ export class MyApp {
       });
 
       const authObserver = auth.authState.subscribe( user => {
-        alert("app.comp auth state: "+JSON.stringify(user));
-        this.CC.presentLoading("Auntenticando");
+        // alert("app.comp auth state: "+JSON.stringify(user));
+        this.CC.presentLoading("Auntenticando...");
         
         if(user){
+          
           this.userKey = user.uid;
           this.userProvider.queryUserExists(user.uid);
         }else{

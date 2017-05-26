@@ -54,7 +54,7 @@ export class ChatsProvider {
         console.log("DESTINATARIO: ",destinatario);
 
         if(this.user.$key == destinatario.key){
-            alert("No se puede chat consigo mismo");
+            this.CC.presentToast("No se puede chatear consigo mismo",1000);
             return false;
         }
         this.recentEndpoint1 = this.database.object(`/usuarios/${this.user.$key}/chats/${destinatario.key}`);
@@ -106,7 +106,7 @@ export class ChatsProvider {
     }
     deleteChat(chat){
         if(this.allMessages==null){
-            alert("Error: mensajes nulos");
+            this.CC.presentToast("Error: mensajes nulos",0);
             return null;
         }
         try {

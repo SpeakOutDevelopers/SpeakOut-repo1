@@ -52,15 +52,17 @@ export class ChatViewPage {
 
 
   sendMessage() {
-    
-    if(this.message) {
-      let msg = {
-          from: this.user.$key,
-          nombre_destinatario: this.user.nombre,
-          message: this.message
-      };
-      this.chatsProvider.pushChatMessage(msg);
-      this.message = "";
+    if(this.message!=""){
+
+      if(this.message) {
+        let msg = {
+            from: this.user.$key,
+            nombre_destinatario: this.user.nombre,
+            message: this.message
+        };
+        this.chatsProvider.pushChatMessage(msg);
+        this.message = "";
+      }
     }
   }
   close(): void {

@@ -41,12 +41,14 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
   login(){
-      
+    this.CC.presentToast("Iniciando autenticacion...",100);
+
     this.af.auth.signInWithEmailAndPassword(
         this.user.email,
         this.user.password
     ).then((success) => {
         //this.userProvider.setCurrentUser(success.uid);
+        this.CC.presentToast("Autenticado!",1000);
         console.log(success);
     }, (err) => {
         this.error = err;

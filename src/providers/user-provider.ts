@@ -48,7 +48,7 @@ export class UserProvider {
       console.log("exists",user.exists());
       
       if(!user.exists()){
-        alert("El usuario no esta creado completamente");
+        this.CC.presentToast("El usuario no esta creado completamente",1000);
         this.userExistsSubject.next(false);
       }else{
         this.userExistsSubject.next(true);

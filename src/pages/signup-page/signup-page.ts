@@ -60,6 +60,7 @@ export class SignupPage {
         
         }).catch(
           (err) => {
+            
           this.CC.showAlert(err.message);
           console.log(err);
           this.error = err;

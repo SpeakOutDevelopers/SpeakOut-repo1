@@ -1,3 +1,4 @@
+import { CentralController } from '../../controllers/central.controller';
 import { Usuario } from '../../commons/entities';
 import { RegisterLanguagePage } from '../register-language/register-language';
 import { Component } from '@angular/core';
@@ -18,14 +19,15 @@ export class RegisterAgePage {
   user: Usuario
   token:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public CC: CentralController) {
     this.user = this.navParams.get("user");
     this.token = this.navParams.get("token");
   }
 
   passToEmail(formData): void {
     if (formData.valid) {
-      if (formData.value.age == null) {
+      if (formData.value.age == null || formData.value.age==0 || formData.value.age=="" ) {
+        this.CC.presentToast("Datos invalidos",0);
         return null;
       }
       this.user.edad = formData.value.age;
