@@ -43,7 +43,7 @@ export class RegisterLanguagePage {
       this.user = this.navParams.get("user");
       this.token = this.navParams.get("token");
 
-      alert("token :"+this.token);
+      //alert("token :"+this.token);
 
       this.eventProvider.getIdiomasObservable().subscribe((idiomas) => {
         this.todosIdiomas = idiomas;
@@ -148,6 +148,7 @@ export class RegisterLanguagePage {
       return null;
     }
     //alert("regist-lang creation user: "+JSON.stringify(this.user));
+    
     if(this.user.tipoAutenticacion == "simple"){
       this.CC.presentToast("Creando usuario...",1000);
       //alert("auth simple");

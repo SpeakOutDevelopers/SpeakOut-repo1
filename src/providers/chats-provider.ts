@@ -97,8 +97,8 @@ export class ChatsProvider {
     openChat(destinatario){
         console.log("ABRIR CHAT DESTINATORIO:",destinatario);
 
-        this.currentChatRef1 = this.database.list(`/messages/${this.user.$key},${destinatario.key}`);
-        this.currentChatRef2 = this.database.list(`/messages/${destinatario.key},${this.user.$key}`);
+        this.currentChatRef1 = this.database.list(`/mensajes/${this.user.$key},${destinatario.key}`);
+        this.currentChatRef2 = this.database.list(`/mensajes/${destinatario.key},${this.user.$key}`);
 
         this.recentEndpoint1 = this.database.object(`/usuarios/${this.user.$key}/chats/${destinatario.key}`);
         this.recentEndpoint2 = this.database.object(`/usuarios/${destinatario.key}/chats/${this.user.$key}`);
