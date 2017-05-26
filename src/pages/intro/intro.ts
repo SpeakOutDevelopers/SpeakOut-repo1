@@ -94,7 +94,7 @@ export class IntroPage {
                 }
               });
 
-              this.userProvider.checkUserExists(success.uid);
+              //this.userProvider.checkUserExists(success.uid);
 
             })
             .catch((error) => {

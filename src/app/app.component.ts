@@ -35,24 +35,38 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
       
-      this.userProvider.getUserExistsSubject().subscribe((userExists)=>{
-        alert("user exists "+userExists);
-        if(userExists){
-          this.rootPage = TabsPage;
-          this.userProvider.setCurrentUser(this.userKey);
-        } else {
-          this.CC.dismissLoading();
-          this.rootPage = IntroPage;
-        }
-      });
+      // this.userProvider.getUserExistsSubject().subscribe((userExists)=>{
+      //   alert("user exists "+userExists);
+      //   if(userExists){
+      //     this.rootPage = TabsPage;
+      //     this.userProvider.setCurrentUser(this.userKey);
+      //   } else {
+      //     this.CC.dismissLoading();
+      //     this.rootPage = IntroPage;
+      //   }
+      // });
 
       const authObserver = auth.authState.subscribe( user => {
         alert("app.comp auth state: "+JSON.stringify(user));
         this.CC.presentLoading("Auntenticando");
         
         if(user){
-          this.userKey = user.uid;
-          this.userProvider.checkUserExists(user.uid);
+          // this.userKey = user.uid;
+          this.userProvider.queryUserExists(user.uid);
+
+          setTimeout(() => {   }, 4000);
+
+          if(this.userProvider.getUserExistsSubject()){
+            this.rootPage = TabsPage;
+            this.userProvider.setCurrentUser(this.userKey);
+          }else{
+            this.CC.dismissLoading();
+            this.rootPage = IntroPage;
+          }
+
+          
+
+
         }else{
           this.CC.dismissLoading();
         }

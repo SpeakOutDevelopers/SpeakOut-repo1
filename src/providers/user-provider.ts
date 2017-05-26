@@ -18,7 +18,8 @@ export class UserProvider {
   user:any;
   userExistsSubject: Subject<any>;
   currentUserSubject: Subject<any>;
-  
+  userExists:boolean = false;
+
   constructor(
     public database: AngularFireDatabase,
     public CC: CentralController
@@ -40,6 +41,17 @@ export class UserProvider {
       });
 
 	}
+  queryUserExists(key:string){
+    this.database.object('/usuarios/'+key, { preserveSnapshot: true }).subscribe((user) => {
+      alert("usuario existe: "+JSON.stringify(user));
+      if(user!=null){
+        this.userExists = true;
+      }else{
+        alert("El usuario no esta creado completamente");
+      }
+    });
+  }
+
   getCurrentUserObservable(){
     return this.currentUser;
   }
@@ -55,14 +67,10 @@ export class UserProvider {
 		newUser.update(user);
 	}
 
-  checkUserExists(key){
-
-    this.database.object(`/usuarios/${key}`,  { preserveSnapshot: true }).subscribe((user) => {
-      this.userExistsSubject.next(user.exists());
-      //alert("usuario existe: "+user.exists())
-    });
-
+  checkUserExists():boolean{
+    return this.userExists;
   }
+
   getUserExistsSubject():Subject<any>{
     return this.userExistsSubject;
   }
