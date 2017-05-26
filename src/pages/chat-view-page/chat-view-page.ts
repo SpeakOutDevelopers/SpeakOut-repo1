@@ -1,11 +1,10 @@
 import { CentralController } from '../../controllers/central.controller';
-import { ViewController } from 'ionic-angular/es2015';
 import { UserProvider } from '../../providers/user-provider';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { ChatsProvider } from '../../providers/chats-provider';
 import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
-import { NavController, NavParams, Content } from 'ionic-angular';
+import { NavController, NavParams, Content, ViewController } from 'ionic-angular';
 
 /**
  * Generated class for the ChatViewPage page.
@@ -21,7 +20,7 @@ export class ChatViewPage {
   
   message: string;
   user:any;
-  recipient:string;
+  destinatario:string;
   messages:any;  
   @ViewChild(Content) content: Content;
 
@@ -33,13 +32,14 @@ export class ChatViewPage {
     public viewCtrl: ViewController,
     public CC: CentralController
     ) {
-      this.CC.presentLoading("Espera");
       this.userProvider.getCurrentUserObservable().subscribe((user)  => {
         this.user = user;
-        this.CC.dismissLoading();
+        // this.CC.dismissLoading();
       });
 
-      this.recipient = navParams.get('recipient');
+      this.destinatario = navParams.get('destinatario');
+      console.log("DESTINATARIO: ", this.destinatario);
+      
       
       this.chatsProvider.getChatRefObservable(1).subscribe((messages) => {
         this.messages = messages;
@@ -56,7 +56,7 @@ export class ChatViewPage {
     if(this.message) {
       let msg = {
           from: this.user.$key,
-          recipient_name: this.user.name,
+          nombre_destinatario: this.user.nombre,
           message: this.message
       };
       this.chatsProvider.pushChatMessage(msg);

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>
       Chats
     </ion-title>
@@ -9,12 +9,12 @@
 <ion-content>
     <ion-list>
         <ion-item-sliding  *ngFor="let chat of chats">
-            <ion-item (click)="openChat(chat.recipient)">
+            <ion-item (click)="openChat(chat.destinatario)">
                 <ion-avatar item-left  >
-                        <img  src="https://alohab.myhappyco.com/images/img-profile.png">
+                        <img *ngIf="chat.destinatario.img!=''" src={{chat.destinatario.img}}>
                 </ion-avatar>
-                <span >{{chat.recipient.name}}</span><br>
-                <span class="last-message" >{{chat.last_message}}</span>
+                <span >{{chat.destinatario.nombre}}</span><br>
+                <span class="last-message" >{{chat.ultimo_mensaje}}</span>
             </ion-item>
             <ion-item-options>
                 <button class="delete-button" (click)="removeChat(chat)"><ion-icon name="trash"></ion-icon> Delete</button>

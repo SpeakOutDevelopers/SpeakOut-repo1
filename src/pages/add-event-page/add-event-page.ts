@@ -17,14 +17,16 @@ import { CentralController } from '../../controllers/central.controller';
 })
 export class AddEventPage {
 
-  evento: Evento = {
+  evento = {
     fecha_creacion: "",
     fecha_evento: '',
     hora_fin: '',
     hora_inicio: '',
     idiomas:  [],
     ubicacion: '',
-    usuario: { biografia: '', idiomas : [], img : '', key : '', nombre: ''}
+    usuario: {
+
+    }
   }
 
   contadorCarga = 0;
@@ -40,7 +42,9 @@ export class AddEventPage {
 
   user: any;
 
-  currentDate = new Date().toISOString().slice(0, 10);
+  currentDate: any;
+  
+  
 
   constructor(
     public navCtrl: NavController, 
@@ -54,12 +58,23 @@ export class AddEventPage {
 
 
     ) {
-      this.init();
+
+       let date = new Date();
+      // this.currentDate = date.getUTCFullYear() + "-"+date.getMonth()+"-"+date.getDate();  
+      this.currentDate = date.toISOString().slice(0,10);
+
+
+      console.log("CURRENT DATE:", this.currentDate);
+      this.userProvider.getCurrentUserObservable().subscribe((user) => {
+        this.user = user;
+        console.log("USER SET ON ADD EVENT PAGE:",user);
+        this.CC.dismissLoading();
+      })
        
       this.eventProvider.getIdiomasObservable().subscribe((idiomas) => {
         this.todosIdiomas = idiomas;
         
-        console.log(this.todosIdiomas);
+        // console.log(this.todosIdiomas);
       });
       this.eventProvider.getUbicacionesObservable().subscribe((ubicaciones) => {
         this.ubicaciones = ubicaciones;
@@ -69,14 +84,16 @@ export class AddEventPage {
 
   init() {
 
-    if(this.userProvider.isUserSet()){
-      this.userProvider.getCurrentUserObservable().subscribe((user) => {
-        this.user = user;
-        console.log(this.user);
-      });
-    }else{
-      this.presentLoadingDefault();
-    }
+    
+
+    // if(this.userProvider.isUserSet()){
+    //   this.userProvider.getCurrentUserObservable().subscribe((user) => {
+    //     this.user = user;
+    //     console.log("add event user:"+JSON.stringify(this.user));
+    //   });
+    // }else{
+    //   this.presentLoadingDefault();
+    // }
   }
   selectLanguage(languageName){
     let index = this.languageListPosition(this.idiomaSeleccionado);
@@ -109,15 +126,24 @@ export class AddEventPage {
           return null;
         }
         this.evento = {
-          fecha_creacion: new Date(),
+          fecha_creacion: new Date().toUTCString(),
           fecha_evento: formData.value.date_event,
           hora_fin: formData.value.end_time,
           hora_inicio: formData.value.start_time,
           idiomas: this.languages,
           ubicacion: this.getUbicacion(),
-          usuario:this.user
+          usuario : {
+            genero: this.user.genero,
+            edad: this.user.edad,
+            nombre: this.user.nombre,
+            tipoAuntenticacion: this.user.tipoAutenticacion,
+            img: this.user.img,
+            biografia: this.user.biografia,
+            key: this.user.$key
+          }
         };
-
+        
+        console.log("CREANDO EVENTO:",this.evento);
         this.viewCtrl.dismiss(this.evento);
      }
   }

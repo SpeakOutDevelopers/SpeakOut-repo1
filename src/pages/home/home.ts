@@ -1,3 +1,6 @@
+import { CentralController } from '../../controllers/central.controller';
+import { ChatsProvider } from '../../providers/chats-provider';
+import { ChatViewPage } from '../chat-view-page/chat-view-page';
 import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { AddEventPage } from '../add-event-page/add-event-page';
@@ -39,6 +42,8 @@ export class HomePage {
      public eventProvider: EventProvider, 
      public actionSheetCtrl: ActionSheetController,
      public alertCtrl: AlertController,
+     public chatsProvider: ChatsProvider,
+     public CC: CentralController
      ) {
     
     this.eventProvider.getIdiomasObservable().subscribe((idiomas)=>{ 
@@ -120,7 +125,9 @@ console.log(this.eventos)
   }
 
   addEvent(){
-     let modal = this.modalCtrl.create(AddEventPage);
+    this.CC.presentLoading("Cargando");
+
+    let modal = this.modalCtrl.create(AddEventPage);
 
     modal.onDidDismiss(event => {
       if(event){
@@ -228,12 +235,21 @@ console.log(this.eventos)
     
   }
 
-cleanFilters(){
+  cleanFilters(){
+    this.eventos=this.eventosEstaticos;
+  }
 
-this.eventos=this.eventosEstaticos;
-
-
-}
+  openChat(usuario){
+    let success = this.chatsProvider.createChat(usuario);
+    if(success){
+      // this.CC.presentLoading("Espera");
+      this.chatsProvider.openChat(usuario);
+      let modal = this.modalCtrl.create(ChatViewPage, {
+        destinatario : usuario
+      });
+      modal.present();
+    } 
+  }
 
 
 

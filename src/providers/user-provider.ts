@@ -17,6 +17,7 @@ export class UserProvider {
   currentUser: FirebaseObjectObservable<any>;
   user:any;
   userExistsSubject: Subject<any>;
+  currentUserSubject: Subject<any>;
   
   constructor(
     public database: AngularFireDatabase,
@@ -24,13 +25,17 @@ export class UserProvider {
     ) {
       console.log('Hello UserProvider Provider');
       this.userExistsSubject = new Subject();
+      this.currentUserSubject = new Subject();
   }
 
     setCurrentUser(key){
       this.currentUser = this.database.object('/usuarios/'+key);
       this.currentUser.subscribe((user) => {
         this.user = user;
-        console.log(user);
+        console.log("user-provider current user: ",user);
+        console.log();
+        
+        this.currentUserSubject.next(user);
         this.CC.dismissLoading();
       });
 
@@ -61,11 +66,11 @@ export class UserProvider {
   getUserExistsSubject():Subject<any>{
     return this.userExistsSubject;
   }
-
-
-
   updateCurrentUser(newUserData:any){
     this.currentUser.update(newUserData);
+  }
+  getCurrentUserSubject(): Subject<any>{
+    return this.currentUserSubject;
   }
 
 }

@@ -1,6 +1,9 @@
+import { Observable, Subject } from 'rxjs/Rx';
+import { UserProvider } from './user-provider';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+
 
 
 @Injectable()
@@ -24,52 +27,54 @@ export class ChatsProvider {
     currentChatRef1: FirebaseListObservable<any>;
     currentChatRef2: FirebaseListObservable<any>;
 
-
+    chatsSubject: Subject<any>;
 
 
     constructor(
         public database: AngularFireDatabase, 
+        public userProvider: UserProvider
         ){
-            
-        this.allMessages = this.database.list('/messages');
-    }
-    init(user: any){
-        
-        user.subscribe((user) => {
+        this.chatsSubject = new Subject();
+        this.allMessages = this.database.list('/mensajes');
+        this.userProvider.getCurrentUserSubject().subscribe((user)=>{
             this.user = user;
-            this.chatsObservable = this.database.list(`/users/${this.user.$key}/chats`);
+            this.chatsObservable = this.database.list(`/usuarios/${this.user.$key}/chats`);
         });
-
-         
     }
-    createChat(recipient: any){
-        // console.log(this.user);
-        // console.log(recipient);
 
-        if(this.user.$key === recipient.key){
+    createChat(destinatario: any){
+        console.log("DESTINATARIO: ",destinatario);
+
+        if(this.user.$key === destinatario.key){
             return false;
         }
-        this.recentEndpoint1 = this.database.object(`/users/${this.user.$key}/chats/${recipient.key}`);
+        this.recentEndpoint1 = this.database.object(`/usuarios/${this.user.$key}/chats/${destinatario.key}`);
         this.recentEndpoint1.update({
-            recipient: {
-                name: recipient.name,
-                key: recipient.key
+            destinatario: {
+                nombre: destinatario.nombre,
+                key: destinatario.key,
+                img : destinatario.img
             }
         });
 
       
-        this.recentEndpoint2 = this.database.object(`/users/${recipient.key}/chats/${this.user.$key}`);
+        this.recentEndpoint2 = this.database.object(`/usuarios/${destinatario.key}/chats/${this.user.$key}`);
         this.recentEndpoint2.update({
-            recipient: {
-                name: this.user.name,
-                key: this.user.$key
+            destinatario: {
+                nombre: this.user.nombre,
+                key: this.user.$key,
+                img : this.user.img
+
             }
         });
         
         return true;
     }
     
-    getChatsObservable(){
+    getChatsSubject(): Subject<any>{
+        return this.chatsSubject;
+    }
+    getChatsObservable():FirebaseListObservable<any>{
         return this.chatsObservable;
     }
     getChatRefObservable(ref: number): FirebaseListObservable<any>{
@@ -80,14 +85,14 @@ export class ChatsProvider {
         }
     }
 
-    openChat(recipient){
-        console.log(recipient.key);
-        console.log(this.user.$key);
-        this.currentChatRef1 = this.database.list(`/messages/${this.user.$key},${recipient.key}`);
-        this.currentChatRef2 = this.database.list(`/messages/${recipient.key},${this.user.$key}`);
+    openChat(destinatario){
+        console.log("ABRIR CHAT DESTINATORIO:",destinatario);
 
-        this.recentEndpoint1 = this.database.object(`/users/${this.user.$key}/chats/${recipient.key}`);
-        this.recentEndpoint2 = this.database.object(`/users/${recipient.key}/chats/${this.user.$key}`);
+        this.currentChatRef1 = this.database.list(`/messages/${this.user.$key},${destinatario.key}`);
+        this.currentChatRef2 = this.database.list(`/messages/${destinatario.key},${this.user.$key}`);
+
+        this.recentEndpoint1 = this.database.object(`/usuarios/${this.user.$key}/chats/${destinatario.key}`);
+        this.recentEndpoint2 = this.database.object(`/usuarios/${destinatario.key}/chats/${this.user.$key}`);
 
     }
     deleteChat(chat){
@@ -96,11 +101,11 @@ export class ChatsProvider {
             return null;
         }
         try {
-            this.allMessages.remove(this.user.$key+","+chat.recipient.key);
-            this.allMessages.remove(chat.recipient.key+","+this.user.$key);
+            this.allMessages.remove(this.user.$key+","+chat.destinatario.key);
+            this.allMessages.remove(chat.destinatario.key+","+this.user.$key);
 
-            this.recentEndpoint1 = this.database.object(`/users/${this.user.$key}/chats/${chat.recipient.key}`);
-            this.recentEndpoint2 = this.database.object(`/users/${chat.recipient.key}/chats/${this.user.$key}`);
+            this.recentEndpoint1 = this.database.object(`/usuarios/${this.user.$key}/chats/${chat.destinatario.key}`);
+            this.recentEndpoint2 = this.database.object(`/usuarios/${chat.destinatario.key}/chats/${this.user.$key}`);
 
             this.recentEndpoint1.remove();
             this.recentEndpoint2.remove();
@@ -116,11 +121,11 @@ export class ChatsProvider {
         this.currentChatRef2.push(message);
 
         this.recentEndpoint1.update({
-            last_message: this.user.name+": "+message.message,
+            ultimo_mensaje: this.user.nombre+": "+message.message,
         });
 
         this.recentEndpoint2.update({
-            last_message: this.user.name+": "+message.message,
+            ultimo_mensaje: this.user.nombre+": "+message.message,
         })
     }
 }

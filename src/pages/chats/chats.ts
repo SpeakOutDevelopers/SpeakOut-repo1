@@ -1,5 +1,5 @@
 import { ChatViewPage } from '../chat-view-page/chat-view-page';
-import { ModalController } from 'ionic-angular/es2015';
+import { ModalController } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { UserProvider } from '../../providers/user-provider';
 import { ChatsProvider } from '../../providers/chats-provider';
@@ -25,17 +25,19 @@ export class ChatsPage {
     public modalCtrl: ModalController,
     public CC: CentralController 
     ) {
-      this.CC.presentLoading("Cargando chats");
+      // this.CC.presentLoading("Cargando chats");
       this.chatsProvider.getChatsObservable().subscribe((chats) => {
           this.chats = chats;
-          this.CC.dismissLoading();
+          //console.log("CHATS: ",this.chats);
+          
+          // this.CC.dismissLoading();
       });
     }
 
   openChat(driver){
     this.chatsProvider.openChat(driver);
     let modal = this.modalCtrl.create(ChatViewPage, {
-      recipient : driver
+      destinatario : driver
     });
     modal.present();
   }

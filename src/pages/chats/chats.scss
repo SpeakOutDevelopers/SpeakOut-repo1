@@ -1,14 +1,14 @@
 
 page-chats{
     .last-message{
-        color: #FFB74D;
+        color:color($colors, secondary);
         margin-left: 10px;
         font-style: italic;
     }
     .delete-button{
         background-color: #f53d3d;
     }
-    ion-item{
-        background: #000!important;
+    img{
+        height: 1%;
     }
 }

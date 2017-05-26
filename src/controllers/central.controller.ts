@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ViewController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
+import {  AlertController, LoadingController, Loading } from 'ionic-angular';
 
 
 @Injectable()

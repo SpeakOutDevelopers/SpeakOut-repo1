@@ -17,7 +17,6 @@ export class ProfilePage {
 
       this.userPro.getCurrentUserObservable().subscribe((user)=>{ 
           this.user=user;
-          console.log(user);
           this.languages=user.idiomas;
        });
 

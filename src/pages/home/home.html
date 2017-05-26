@@ -60,7 +60,15 @@
         </ion-row>
         <ion-row>
           <ion-item>
-            <h3 *ngFor="let idioma of evento.idiomas">{{idioma.nombre}}, {{idioma.nivel}} </h3>
+            <ion-row>
+
+              <ion-col width-60>
+              <h3 *ngFor="let idioma of evento.idiomas">{{idioma.nombre}}, {{idioma.nivel}} </h3>
+              </ion-col>
+              <ion-col width-40>
+                <button class="btn-chat" ion-button icon-only (click)="openChat(evento.usuario)"  ><ion-icon name="chatbubbles"></ion-icon></button>
+              </ion-col>
+            </ion-row>
           </ion-item>
         </ion-row>
 
