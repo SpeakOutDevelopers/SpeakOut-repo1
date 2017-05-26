@@ -74,12 +74,10 @@ export class IntroPage {
           const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
           firebase.auth().signInWithCredential(facebookCredential).then(
             (success) => {
-<<<<<<< HEAD
-              //alert("autenticado con fb: "+JSON.stringify(success));
-=======
+
               // alert("autenticado con fb: "+JSON.stringify(success));
               this.CC.presentToast("Autenticado!",2000);
->>>>>>> fblogin
+
               
               this.createUserFb(success);
 

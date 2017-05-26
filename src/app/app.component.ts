@@ -18,6 +18,7 @@ import { CentralController } from '../controllers/central.controller';
 })
 export class MyApp {
   rootPage:any = IntroPage;
+  userKey: string
 
   constructor(
     platform: Platform,
@@ -34,19 +35,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-<<<<<<< HEAD
 
-      const authObserver = auth.authState.subscribe( user => {
-        //alert("app.comp auth state: "+JSON.stringify(user));
-        if (user) {
-          if(!this.CC.isFbUserOnCreation()){
-            this.rootPage = TabsPage;
-            this.userProvider.setCurrentUser(user.uid);
-          }
-        } else {
-            this.CC.dismissLoading();
-            this.rootPage = IntroPage;
-=======
       
       this.userProvider.getUserExistsSubject().subscribe((userExists)=>{
         //alert("user exists "+userExists);
@@ -70,7 +59,7 @@ export class MyApp {
         }else{
           this.CC.dismissLoading();
           this.rootPage = IntroPage;
->>>>>>> fblogin
+
         }
       });
     });

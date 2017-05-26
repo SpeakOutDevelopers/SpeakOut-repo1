@@ -54,11 +54,9 @@ export class ChatsProvider {
         console.log("DESTINATARIO: ",destinatario);
 
         if(this.user.$key == destinatario.key){
-<<<<<<< HEAD
-            //alert("No se puede chat consigo mismo");
-=======
+
             this.CC.presentToast("No se puede chatear consigo mismo",1000);
->>>>>>> fblogin
+
             return false;
         }
         this.recentEndpoint1 = this.database.object(`/usuarios/${this.user.$key}/chats/${destinatario.key}`);
