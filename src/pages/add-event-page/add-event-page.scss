@@ -1,9 +1,5 @@
 page-add-event-page {
 
-    ion-scroll {
-        white-space: nowrap;
-        height: 250px; // better to calculate the device height and set it offsetting the bottom StatusBar or margin, etc.
-    }
     .scroll-idiomas{
         width:100%;
     }
@@ -30,4 +26,23 @@ page-add-event-page {
         padding: 0;
 
     }
+
+        
+        ion-scroll {
+        white-space: nowrap;
+        height: 20vh;
+        .scroll-item {
+            width:40vw;
+            height: 20vh;
+            display: inline-block;
+           // border: .5px solid #000;
+        }
+        img{
+            height: 100%!important;
+            width: 70%!important;
+
+        }
+
+}
+
 }

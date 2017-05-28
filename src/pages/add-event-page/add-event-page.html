@@ -15,7 +15,7 @@
   
 </ion-header>
 
-<ion-content padding>
+<ion-content >
   <ion-list>  
     <form #formData='ngForm' >
 
@@ -42,35 +42,38 @@
         </ion-datetime>
       </ion-item>
 
-      <ion-item>
-        <ion-grid no-padding>
-          <ion-row> 
-            <ion-col class="col-idiomas lista-idiomas" width-30>
-               <ion-scroll  scrollY="true" direction="xy" overflow-scroll="true" class="scroll-idiomas">
+ 
+  <ion-item>
 
-                    <div (tap)="selectLanguage(idioma.nombre)" *ngFor="let idioma of todosIdiomas" >
-                      <ion-avatar >
-                        <img src={{idioma.img}} />
-                      </ion-avatar>
-                      <h2>{{idioma.nombre}}</h2>
-                    </div>
+     <ion-scroll scrollX="true"  >
+      
+        <div class="scroll-item" (click)="selectLanguage(idioma.nombre)" *ngFor="let idioma of todosIdiomas" >
+          <ion-row>
+            <ion-avatar >
+              <img src={{idioma.img}} />
+            </ion-avatar>
+          </ion-row>
+          <ion-row>
+            <p style="text-align:center;">{{idioma.nombre}}</p>
+          </ion-row>
+        </div>
+      
+    </ion-scroll>
+  </ion-item>
 
-               </ion-scroll>  
-            </ion-col>
-            <ion-col class="idiomas-seleccionados" width-70>
-              <ion-scroll  scrollY="true" direction="xy" overflow-scroll="true">
+          <ion-item *ngIf="languages.length>0">
+             
                 <div  *ngFor="let lang of languages" >
                     <b>{{ capitalizeFirstLetter(lang.nombre)}} </b> <ion-icon *ngFor='let tmp of stringToArray(lang.nivel)' name="star"></ion-icon>
                 </div>
-              </ion-scroll>
-            </ion-col>
-          </ion-row>
-          <ion-row>
+          </ion-item>
+          
+        <ion-item>
+
             <ion-col>
               <button  ion-button small full icon-only (tap)="addLanguage()"><ion-icon name="add"></ion-icon></button>
             </ion-col>
-          </ion-row>
-        </ion-grid>
+
       </ion-item>
 
       <ion-item>
@@ -79,8 +82,9 @@
           </ion-select>
       </ion-item>
       
-      <button ion-button color="secondary" full (tap)="save(formData)" [disabled]="!formData.valid"><ion-icon name="md-contacts"></ion-icon>Crear Evento</button>  
+      <button ion-button color="secondary" full (tap)="save(formData)" [disabled]="!formData.valid"><ion-icon name="md-contacts"></ion-icon>Crear Evento</button>  -->
 
     </form>
   </ion-list>
+
 </ion-content>
