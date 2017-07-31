@@ -9,7 +9,7 @@
     </ion-item>
 
     <ion-item>
-      <button ion-button block outline icon-left (click)='openUbicationFilter();'>
+      <button ion-button block outline icon-left (click)='openLocationFilter();'>
              <ion-icon name="pin"></ion-icon>
             Cerca de aquí
           </button>
@@ -54,7 +54,7 @@
             </ion-avatar>
           </ion-col>
           <ion-col>
-            <h2><strong>{{evento.usuario.nombre}}</strong>, 20</h2>
+            <h2><strong>{{evento.usuario.nombre}}</strong>, {{evento.usuario.edad}}</h2>
           </ion-col>
           <ion-col></ion-col>
         </ion-row>

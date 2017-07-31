@@ -78,6 +78,7 @@ export class AddEventPage {
       });
       this.eventProvider.getUbicacionesObservable().subscribe((ubicaciones) => {
         this.ubicaciones = ubicaciones;
+        
       });
   }
 

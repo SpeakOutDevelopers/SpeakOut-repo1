@@ -14,20 +14,36 @@
 
 
 <ion-content padding>
-  <form #formData='ngForm' (ngSubmit)="passToLanguage(formData)">
     <ion-grid>
-       <ion-item>
-        <ion-img width="280" height="150" src="../assets/img/img_photo.png"></ion-img>  
-      </ion-item>
-      <ion-item>
-        <ion-input type="text" placeholder="Imagen" (ngModel)="photo" name="photo" required></ion-input>
-      </ion-item>
-      <ion-item>
-        <button ion-button block outline icon-left [disabled]="!formData.valid">
+
+      <ion-row>
+        <ion-col col-6 *ngFor="let photo of photos; let id = index">
+          <ion-card class="block">
+            <ion-icon class="deleteIcon" name="trash" (click)="deletePhoto(id)"></ion-icon>
+            <img src={{photo}} />
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <button ion-button block outline icon-left (click)="takePhoto()"> 
+              Tomáte una foto
+            </button>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <button ion-button block outline icon-left (click)="pickFromGallery()"> 
+              Galería
+            </button>
+        </ion-item>
+      </ion-row>
+      <ion-row>
+        <ion-item>
+          <button ion-button block outline icon-left (click)="passToLanguage()">
               Continuar
             </button>
-
-      </ion-item>
+        </ion-item>
+      </ion-row>
     </ion-grid>
-  </form>
 </ion-content>

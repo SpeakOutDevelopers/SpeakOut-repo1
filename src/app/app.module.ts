@@ -2,7 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-
+import { Camera } from '@ionic-native/camera';
 import { ProfilePage } from '../pages/profile/profile';
 import { ChatsPage } from '../pages/chats/chats';
 import { HomePage } from '../pages/home/home';
@@ -19,6 +19,7 @@ import { UserProvider } from '../providers/user-provider';
 import { ChatsProvider } from '../providers/chats-provider';
 import { ConfigurationProvider } from '../providers/configuration-provider';
 import { EventProvider } from '../providers/event-provider';
+import { Geolocation } from '@ionic-native/geolocation';
 
 import { CentralController } from '../controllers/central.controller';
 
@@ -37,6 +38,7 @@ import {RegisterEmailPage} from '../pages/register-email/register-email';
 import {RegisterPasswordPage} from '../pages/register-password/register-password';
 import {RegisterPhotoPage} from '../pages/register-photo/register-photo';
 import {RegisterLanguagePage} from '../pages/register-language/register-language';
+import {LocationFilterPage} from '../pages/location-filter/location-filter';
 
 
 export const firebaseConfig = {
@@ -75,6 +77,8 @@ import { ExpandableHeader } from "../components/expandable-header/expandable-hea
     RegisterPasswordPage,
     RegisterPhotoPage,
     RegisterLanguagePage,
+    LocationFilterPage,
+
     
   ],
   imports: [
@@ -104,7 +108,8 @@ import { ExpandableHeader } from "../components/expandable-header/expandable-hea
     RegisterEmailPage,
     RegisterPasswordPage,
     RegisterPhotoPage,
-    RegisterLanguagePage
+    RegisterLanguagePage,
+    LocationFilterPage
   ],
   providers: [
     StatusBar,
@@ -113,10 +118,12 @@ import { ExpandableHeader } from "../components/expandable-header/expandable-hea
     ChatsProvider,
     ConfigurationProvider,
     EventProvider,
+    Geolocation,
     CentralController,
     AngularFireAuth,
     AngularFireDatabase,
     Facebook,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
